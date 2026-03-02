@@ -2,6 +2,59 @@
 
 ---
 
+## v1.0.3-pre
+
+### ✨ Yeni: Log Sistemi — `macro:log/*`
+
+Dialog tabanlı log sistemi. Chat'e hiç yazmaz; 1.21.6+ sürümlerde `/dialog show @s` ile inline JSON panel açar, eski sürümlerde `tellraw @s` ile güvenli fallback yapar.
+
+| Fonksiyon | Input | Açıklama |
+|---|---|---|
+| `log/add` | `{level, message, color}` | Ham log girişi ekle |
+| `log/info` | `{message}` | INFO seviyesi (yeşil) |
+| `log/warn` | `{message}` | WARN seviyesi (sarı) |
+| `log/error` | `{message}` | ERROR seviyesi (kırmızı) |
+| `log/debug` | `{message}` | DEBUG seviyesi (gri) |
+| `log/show` | — | @s'e log dialog/tellraw göster |
+| `log/clear` | — | Tüm log girişlerini temizle |
+
+Storage: `macro:engine log_display` — JSON text component listesi, maks 30 giriş (circular buffer). Scoreboard: `$log_count macro.tmp`.
+
+### ✨ Yeni: Tick-safe Guard — `macro:lib/tick_guard`
+
+Entity başına tick-unique çalışma denetimi. Aynı entity'nin aynı tick içinde iki kez tetiklenmesini önler.
+
+| Fonksiyon | Açıklama |
+|---|---|
+| `lib/tick_guard` | @s için guard kontrol+set. return 0=zaten çalışmış, return 1=devam et |
+| `lib/tick_guard_clear` | @s için guard manuel sıfırla |
+
+Mekanizma: `@s macro.tick_guard` == `$epoch macro.time` ise dur, değilse epoch'u yaz. Bir sonraki tick'te `$epoch` değiştiğinden guard otomatik geçersiz olur.
+
+### ✨ Yeni: Gelişmiş Trigger Sistemi — `macro:trigger/*`
+
+`macro_action` adlı yeni trigger objective + value→function bind sistemi. Oyuncu `/trigger macro_action set <N>` yazdığında N'e bağlı fonksiyon otomatik çalışır. Tick dispatch `macro:input`'e kesinlikle dokunmaz.
+
+| Fonksiyon | Input | Açıklama |
+|---|---|---|
+| `trigger/bind` | `{value, func}` | Değeri fonksiyona bağla |
+| `trigger/unbind` | `{value}` | Belirli değerin tüm bind'larını kaldır |
+| `trigger/unbind_all` | — | Tüm bind'ları temizle |
+| `trigger/enable` | `{player}` | Oyuncuya macro_action trigger'ını aç |
+| `trigger/disable` | `{player}` | Oyuncunun trigger'ını kapat |
+| `trigger/list` | — | Bind listesini @s'e göster |
+
+Storage: `macro:engine trigger_binds [{value:N, func:"..."}]`. Aynı değere birden fazla bind eklenebilir (hepsi çalışır).
+
+### ⚙️ Değişiklikler
+
+- `load.mcfunction`: versiyon `1.0.3-pre`; yeni objective'ler `macro_action`, `macro.tick_guard`; log ve trigger storage init eklendi
+- `tick.mcfunction`: trigger dispatch satırı eklendi (`execute as @a[scores={macro_action=1..}]`)
+- `disable/main.mcfunction`: yeni objective ve storage temizleme eklendi
+- `lib/input_push.mcfunction`: `level` alanı açıklaması güncellendi
+
+---
+
 ## v1.0.1
 
 ### 🐛 Bug Fixes
