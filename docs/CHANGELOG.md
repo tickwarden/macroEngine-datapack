@@ -1,7 +1,10 @@
 # Advanced Macro Engine — Changelog
 
 ---
-## v1.0.3
+### v1.0.4
+Hata düzeltmeleri ve iyileştirmeler.
+
+### v1.0.3
 Rate-limit ve ek özellikler
 | Fonksiyon | Yetki kontrolü / Rate-limit / Dosya |
 |---|---|
