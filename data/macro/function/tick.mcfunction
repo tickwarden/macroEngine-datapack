@@ -31,7 +31,7 @@ execute as @a[scores={macro_run=1..}] run function #macro:run
 scoreboard players set @a[scores={macro_run=1..}] macro_run 0
 scoreboard players enable @a[scores={macro_run=-1..}] macro_run
 
-# ── Gelişmiş trigger dispatch (v1.0.3-pre) ───────────────────────────
+# ── Gelişmiş trigger dispatch (v1.0.3) ───────────────────────────
 # macro_action > 0 olan oyuncu için trigger/bind listesi taranır.
 # Eşleşen tüm bind'ların fonksiyonları @s olarak çalıştırılır.
 # macro:input'e kesinlikle dokunulmaz (tick context güvenliği).

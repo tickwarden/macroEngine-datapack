@@ -1,10 +1,10 @@
 # ============================================
-# macro:load — Advanced Macro Engine v1.0.3-pre
+# macro:load — Advanced Macro Engine v1.0.3
 # ============================================
 # /reload veya sunucu başlangıcında otomatik çalışır.
 # Scoreboard, storage ve schedule başlatır.
 #
-# v1.0.3-pre değişiklikleri:
+# v1.0.3 değişiklikleri:
 # + log/ modülü: dialog tabanlı log sistemi (log/add, info, warn, error, debug, show, clear)
 # + lib/tick_guard: entity başına tick-safe guard (çift tetiklenmeyi engeller)
 # + lib/tick_guard_clear: guard manuel sıfırlama
@@ -16,14 +16,14 @@
 # ============================================
 
 # ─── Log storage başlat (önce, log/add çağrılmadan) ─────
-# BUG FIX v1.0.3: execute unless sadece bir önceki satıra uygulanır;
+# BUG FIX v1.0.4: execute unless sadece bir önceki satıra uygulanır;
 # scoreboard set satırı koşulsuz çalışıyordu → circular buffer bozuluyordu.
 # Artık her iki satır da unless ile korunuyor ve yalnızca bir kez çalışıyor.
 execute unless data storage macro:engine log_display run data modify storage macro:engine log_display set value []
 execute unless score $log_count macro.tmp matches 0.. run scoreboard players set $log_count macro.tmp 0
 
 # ─── Load-once guard ÖNCE kontrol et (log kirliliğini önler) ─────────────
-# BUG FIX v1.0.3: Guard log eklemeden önce gelmeliydi.
+# BUG FIX v1.0.4: Guard log eklemeden önce gelmeliydi.
 # Önceki sırada zaten yüklüyse "Başlatılıyor..." logu eklenip sonra return 0
 # yapılıyordu — gereksiz log entry'si birikiyordu.
 execute if data storage macro:engine global{loaded:1b} run data modify storage macro:input message set value "Zaten yüklü — tekrar yükleme atlandı."
@@ -63,7 +63,7 @@ scoreboard players set $tick macro.tmp 0
 scoreboard players set $pq_depth macro.tmp 0
 
 # ─── Global storage başlat ───────────────────────────────
-data modify storage macro:engine global set value {version:"1.0.3"}
+data modify storage macro:engine global set value {version:"V1.0.4"}
 
 # ─── Throttle durumunu başlat (yoksa) ────────────────────
 execute unless data storage macro:engine throttle run data modify storage macro:engine throttle set value {}
@@ -95,7 +95,7 @@ scoreboard players enable @a[tag=macro.admin] macro_action
 data modify storage macro:engine global.loaded set value 1b
 
 # ─── Yükleme mesajı ──────────────────────────────────────
-tellraw @a[tag=macro.debug] {"text":"[Macro Engine v1.0.3-pre] Yüklendi.","color":"green"}
+tellraw @a[tag=macro.debug] {"text":"[Macro Engine v1.0.3] Yüklendi.","color":"green"}
 # BUG FIX v3.5: Makro fonksiyonu "function <name> {nbt}" sözdizimi ile
 # çağrılamaz — "with storage" kullanılmak zorundadır.
 # Ayrıca pitch:0 (duyulamaz ses) → pitch:1 (normal perde) düzeltildi.
@@ -108,9 +108,9 @@ data remove storage macro:input volume
 data remove storage macro:input pitch
 
 # ─── Final log ───────────────────────────────────────────
-# BUG FIX v1.0.3: Sonundaki duplicate init bloğu ve koşulsuz $log_count sıfırlaması kaldırıldı.
+# BUG FIX v1.0.4: Sonundaki duplicate init bloğu ve koşulsuz $log_count sıfırlaması kaldırıldı.
 # "execute if loaded run return 1" de kaldırıldı (her zaman true, gereksiz).
-data modify storage macro:input level set value "Advanced Macro Engine v1.0.3-pre"
+data modify storage macro:input level set value "Advanced Macro Engine v1.0.3"
 data modify storage macro:input message set value "Yüklendi."
 data modify storage macro:input color set value "green"
 function macro:log/add with storage macro:input {}

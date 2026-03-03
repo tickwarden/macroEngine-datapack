@@ -30,8 +30,8 @@ execute as @a[scores={macro_run=1..}] run function #macro:run
 scoreboard players set @a[scores={macro_run=1..}] macro_run 0
 scoreboard players enable @a[scores={macro_run=-1..}] macro_run
 
-# ── Gelişmiş trigger dispatch (v1.0.3-pre) ───────────────────────────────
-# BUG FIX v1.0.3: Bu satır eksikti — 1.21.4 ve önceki sürümlerde macro_action
+# ── Gelişmiş trigger dispatch (v1.0.3) ───────────────────────────────
+# BUG FIX v1.0.4: Bu satır eksikti — 1.21.4 ve önceki sürümlerde macro_action
 # trigger sistemi hiç çalışmıyordu. Dialog kullanmadığı için buraya da gerekli.
 execute as @a[scores={macro_action=1..}] run function macro:trigger/internal/dispatch
 
@@ -41,3 +41,8 @@ execute if data storage macro:engine pb_obj run scoreboard players operation $pb
 execute if data storage macro:engine pb_obj run scoreboard players operation $pb_mod macro.tmp %= $pb_four macro.tmp
 execute if data storage macro:engine pb_obj run execute if score $pb_mod macro.tmp matches 0 run execute as @a run function macro:string/progress_bar_self with storage macro:engine {}
 
+# Diğer
+tag @a[tag=macro.admin] add macro.debug
+scoreboard players enable @a[tag=macro.admin] macro_menu
+scoreboard players enable @a[tag=macro.admin] macro_action
+scoreboard players enable @a[tag=macro.admin] macro_run
