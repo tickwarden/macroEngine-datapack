@@ -1,0 +1,17 @@
+{
+  "parent": "macro:hidden/root",
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "title": { "text": "Task Title", "color": "white" },
+    "description": { "text": "Complete the task.", "color": "gray" },
+    "icon": { "id": "minecraft:grass_block" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  }
+}

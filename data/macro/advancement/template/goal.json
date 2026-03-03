@@ -1,0 +1,17 @@
+{
+  "parent": "macro:hidden/root",
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "title": { "text": "Goal Title", "color": "green" },
+    "description": { "text": "Reach the goal.", "color": "gray" },
+    "icon": { "id": "minecraft:emerald" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

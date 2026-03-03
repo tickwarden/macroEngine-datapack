@@ -1,0 +1,21 @@
+{
+  "parent": "macro:hidden/root",
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "title": { "text": "Challenge Title", "color": "gold" },
+    "description": { "text": "Conquer the challenge.", "color": "gray" },
+    "icon": { "id": "minecraft:nether_star" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/end.png"
+  },
+  "rewards": {
+    "experience": 100
+  }
+}
