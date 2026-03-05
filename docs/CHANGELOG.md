@@ -1,6 +1,46 @@
 # Advanced Macro Engine — Changelog
 
 ---
+
+## v1.0.6-pre2 — 2026-03-05
+
+### 🐛 Bug Fixes
+
+#### `$v_pre` / `$v_*` — 1.21.1 macro parser çakışması
+`ame_load:load/internal/version_set` ve `validate` dosyalarındaki `$v_major`, `$v_minor`, `$v_patch`, `$v_pre`, `$ame_ver_set`, `$ver_mismatch` fake player isimleri 1.21.1'de (pack_format 48–57) `$` ön ekinin macro değişkeni olarak ayrıştırılması nedeniyle `Tam sayı bekleniyor` / `Komut için geçersiz değişken` hatası üretiyordu. Tüm isimler `#ame.*` formatına taşındı:
+
+| Eski | Yeni |
+|---|---|
+| `$v_major` | `#ame.major` |
+| `$v_minor` | `#ame.minor` |
+| `$v_patch` | `#ame.patch` |
+| `$v_pre` | `#ame.pre` |
+| `$ame_ver_set` | `#ame.ver_set` |
+| `$ver_mismatch` | `#ame.mismatch` |
+| `$log_count` | `#ame.log_count` |
+
+Etkilenen dosyalar: `version_set`, `validate`, `version_warn`, `finalize`, `log/add`, `log/clear`, `load/internal/cleanup`.
+
+#### `action` → `invoke` — 1.21.1 NBT path ayrıştırma hatası
+`data modify storage macro:input action` içeren satırlar 1.21.1 komut ayrıştırıcısında `Komut için geçersiz değişken` hatası üretiyordu. `action` storage key'i `invoke` olarak yeniden adlandırıldı:
+
+| Dosya | Değişiklik |
+|---|---|
+| `lib/input_push.mcfunction` | Storage key: `action` → `invoke` |
+| `lib/input_pop.mcfunction` | Storage key: `action` → `invoke` |
+| `world/block_if`, `world/block_unless` | `$(action)` → `$(invoke)` |
+| `inv/player_if_item`, `inv/player_unless_item`, `inv/player_slot_if_item` | `$(action)` → `$(invoke)` |
+| `inv/chest_minecart_if_item`, `inv/chest_minecart_unless_item` | `$(action)` → `$(invoke)` |
+| `geo/in_region`, `geo/in_region_unless`, `geo/near_entity`, `geo/near_entity_unless` | `$(action)` → `$(invoke)` |
+
+> ⚠️ **Breaking change:** `data modify storage macro:input action set value "..."` kullanan fonksiyonlar `invoke` olarak güncellenmeli.
+
+### 🧹 Temizlik
+
+- Tüm `.mcfunction` dosyalarındaki hizalama amaçlı çoklu boşluklar tek boşluğa indirildi (`.json` ve `.mcmeta` korundu).
+
+---
+
 ## v1.0.5 — 2026-03-05
 
 ### 🐛 Bug Fixes
