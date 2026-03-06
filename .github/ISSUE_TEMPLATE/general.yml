@@ -1,0 +1,17 @@
+name: Genel
+description: Yukarıdaki kategorilere uymayan her şey için
+title: ""
+labels: []
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Açıklama
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Ek Bilgi
