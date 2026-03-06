@@ -1,0 +1,69 @@
+name: CHANGELOG Enforcer
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  # ─────────────────────────────────────────────
+  # .mcfunction veya data/ altındaki JSON dosyaları
+  # değişen PR'larda docs/CHANGELOG.md de güncellenmiş
+  # olmalı. Sadece CI, docs veya pack.png gibi değişiklikler
+  # içeren PR'lar muaftır.
+  # ─────────────────────────────────────────────
+  changelog-check:
+    name: CHANGELOG Updated
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if CHANGELOG was updated alongside code changes
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+
+          changed=$(git diff --name-only "$BASE" "$HEAD" 2>/dev/null || git diff --name-only HEAD~1 HEAD)
+
+          echo "Changed files:"
+          echo "$changed"
+          echo ""
+
+          has_code=0
+          has_changelog=0
+
+          while IFS= read -r file; do
+            # Changelog güncellendiyse işaretle
+            [ "$file" = "docs/CHANGELOG.md" ] && has_changelog=1
+
+            # Kod değişikliği sayılan dosyalar
+            case "$file" in
+              data/**/*.mcfunction | data/**/*.json | \
+              _pre_1_21_4/**/*.mcfunction | _pre_1_21_4/**/*.json | \
+              -1_21_4/**/*.mcfunction | -1_21_4/**/*.json | \
+              1_21_6/**/*.mcfunction | 1_21_6/**/*.json | \
+              pack.mcmeta)
+                has_code=1
+                ;;
+            esac
+          done <<< "$changed"
+
+          if [ $has_code -eq 0 ]; then
+            echo "INFO: No code files changed. CHANGELOG check skipped."
+            exit 0
+          fi
+
+          if [ $has_changelog -eq 0 ]; then
+            echo "FAIL: This PR modifies .mcfunction or data JSON files but does not update docs/CHANGELOG.md."
+            echo ""
+            echo "Please add an entry under a new or existing version heading."
+            echo "Format:"
+            echo "  ## vX.Y.Z — YYYY-MM-DD"
+            echo "  ### ✨ Yeni / 🐛 Bug Fixes / 🧹 Temizlik"
+            echo "  - ..."
+            exit 1
+          fi
+
+          echo "PASSED: CHANGELOG updated alongside code changes."

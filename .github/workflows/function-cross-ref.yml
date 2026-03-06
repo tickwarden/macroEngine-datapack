@@ -1,0 +1,132 @@
+name: Function Cross-Reference
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.mcfunction'
+      - '.github/workflows/function-cross-ref.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**/*.mcfunction'
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Tüm .mcfunction dosyalarındaki inline function
+  # çağrılarını tarar ve hedef fonksiyonların
+  # gerçekten var olup olmadığını kontrol eder.
+  #
+  # validate-and-release.yml yalnızca tags/function/*.json
+  # referanslarını kontrol eder; bu job execute/function
+  # satırlarını doğrudan tarar.
+  # ─────────────────────────────────────────────
+  cross-ref:
+    name: Inline Function Call Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract and validate all function calls
+        run: |
+          FAILED=0
+          CHECKED=0
+          SKIPPED=0
+
+          # BUG FIX: "data" değil "." — base="data" ile
+          # "$base/data/$ns/function/..." = "data/data/..." olurdu;
+          # tüm refler MISSING raporlanırdı.
+          BASES=". _pre_1_21_4 ./-1_21_4 1_21_6"
+
+          # Skip listesi:
+          # macro:cmd/   → dinamik dispatch: function macro:cmd/$(type) $(arguments)
+          # macro:input  → storage path, fonksiyon değil (with storage macro:input {})
+          # macro:engine → storage path, fonksiyon değil
+          # Yorum satırlarındaki "mymap:*" örnek refler comment skip ile zaten atlanır.
+          SKIP_PATTERN='^macro:(cmd/|input$|engine$)'
+
+          while IFS= read -r mcfile; do
+            lineno=0
+            while IFS= read -r line; do
+              lineno=$((lineno + 1))
+
+              # Yorum ve boş satırları atla
+              stripped=$(echo "$line" | sed 's/^[[:space:]]*//')
+              [[ "$stripped" == "#"* || -z "$stripped" ]] && continue
+
+              # "function ns:path" kalıbını çıkar.
+              # Dinamik makro: $execute ... run function macro:cmd/$(type)
+              # → regex [a-z0-9_/]+ ile $(type) başlamaz, "macro:cmd/" çıkar.
+              # → SKIP_PATTERN tarafından atlanır.
+              refs=$(echo "$line" | grep -oP '\bfunction\s+\K[a-z_][a-z0-9_]*:[a-z0-9_/]+' || true)
+
+              for ref in $refs; do
+                if echo "$ref" | grep -qP "$SKIP_PATTERN"; then
+                  SKIPPED=$((SKIPPED + 1))
+                  continue
+                fi
+
+                ns="${ref%%:*}"
+                path="${ref#*:}"
+                found=0
+
+                for base in $BASES; do
+                  [ -f "$base/data/$ns/function/$path.mcfunction" ] && found=1 && break
+                done
+
+                CHECKED=$((CHECKED + 1))
+
+                if [ $found -eq 0 ]; then
+                  echo "FAIL [missing-func]: $mcfile:$lineno"
+                  echo "  call  : function $ref"
+                  echo "  expect: data/$ns/function/$path.mcfunction (or overlay)"
+                  FAILED=1
+                fi
+              done
+            done < "$mcfile"
+          done < <(find data _pre_1_21_4 ./-1_21_4 1_21_6 -name "*.mcfunction" 2>/dev/null)
+
+          echo ""
+          echo "Summary: $CHECKED refs checked, $SKIPPED skipped (dynamic/storage)"
+
+          if [ $FAILED -ne 0 ]; then
+            echo "FAILED: One or more function references point to non-existent files."
+            exit 1
+          fi
+          echo "PASSED: All inline function references resolved."
+
+  # ─────────────────────────────────────────────
+  # Overlay Orphan Check
+  # Base'de silinmiş ama overlay'de kalmış dosyaları tespit eder.
+  # v1.0.5'te manuel bulunmak zorunda kalınan tam bu sorun.
+  # ─────────────────────────────────────────────
+  overlay-leakage:
+    name: Overlay Orphan Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check overlay files have base equivalents
+        run: |
+          FOUND=0
+          # Her overlay için: find "<overlay>" döndürdüğü yollar "<overlay>/data/..." formatında gelir.
+          # ${f#"$overlay"/} ile prefix'i strip edip base'de karşılığını kontrol ediyoruz.
+          for overlay in "_pre_1_21_4" "./-1_21_4" "1_21_6"; do
+            [ ! -d "$overlay" ] && continue
+            while IFS= read -r f; do
+              rel="${f#"$overlay"/}"
+              if [ ! -f "$rel" ]; then
+                echo "WARN [orphan-overlay]: $f"
+                echo "  Base equivalent missing: $rel"
+                echo "  (Likely leftover from a deletion — remove from overlay too)"
+                FOUND=$((FOUND + 1))
+              fi
+            done < <(find "$overlay" -name "*.mcfunction" -o -name "*.json" 2>/dev/null)
+          done
+
+          if [ $FOUND -gt 0 ]; then
+            echo ""
+            echo "WARN: $FOUND orphan file(s) in overlays with no base equivalent."
+          else
+            echo "PASSED: All overlay files have base equivalents."
+          fi

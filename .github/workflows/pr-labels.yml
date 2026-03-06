@@ -1,0 +1,104 @@
+name: PR Auto-Label
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  label:
+    name: Auto-Label PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed files and apply labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+
+          LABELS=""
+
+          changed=$(git diff --name-only "$BASE" "$HEAD" 2>/dev/null || git diff --name-only HEAD~1 HEAD)
+
+          add_label() {
+            local label="$1"
+            if ! echo "$LABELS" | grep -qw "$label"; then
+              LABELS="$LABELS $label"
+            fi
+          }
+
+          while IFS= read -r file; do
+            case "$file" in
+              # Overlay-specific changes
+              _pre_1_21_4/*)   add_label "overlay" ;;
+              -1_21_4/*|-1_21_4/*) add_label "overlay" ;;
+              1_21_6/*)        add_label "overlay" ;;
+
+              # Function logic
+              data/*/function/*.mcfunction | data/*/function/**/*.mcfunction)
+                add_label "mcfunction" ;;
+
+              # Data files (loot tables, advancements, predicates, etc.)
+              data/*/loot_table/*)   add_label "loot-table" ;;
+              data/*/advancement/*)  add_label "advancement" ;;
+              data/*/predicate/*)    add_label "predicate" ;;
+              data/*/damage_type/*)  add_label "damage-type" ;;
+              data/*/item_modifier/*)add_label "item-modifier" ;;
+              data/*/tags/*)         add_label "tags" ;;
+
+              # Pack root
+              pack.mcmeta)           add_label "pack-meta" ;;
+
+              # Docs
+              docs/CHANGELOG.md)     add_label "changelog" ;;
+              docs/*)                add_label "documentation" ;;
+
+              # CI
+              .github/*)             add_label "ci" ;;
+            esac
+          done <<< "$changed"
+
+          LABELS=$(echo "$LABELS" | xargs)  # trim whitespace
+
+          if [ -z "$LABELS" ]; then
+            echo "No matching labels to apply."
+            exit 0
+          fi
+
+          echo "Applying labels: $LABELS"
+
+          # Ensure labels exist, create if missing
+          for label in $LABELS; do
+            case "$label" in
+              mcfunction)    color="0075ca"; desc="Changes to .mcfunction files" ;;
+              overlay)       color="e4e669"; desc="Version overlay changes" ;;
+              pack-meta)     color="d93f0b"; desc="pack.mcmeta changes" ;;
+              changelog)     color="0e8a16"; desc="Changelog updated" ;;
+              documentation) color="cfd3d7"; desc="Documentation changes" ;;
+              ci)            color="1d76db"; desc="CI/CD workflow changes" ;;
+              loot-table)    color="c5def5"; desc="Loot table changes" ;;
+              advancement)   color="bfd4f2"; desc="Advancement changes" ;;
+              predicate)     color="d4c5f9"; desc="Predicate changes" ;;
+              damage-type)   color="f9d0c4"; desc="Damage type changes" ;;
+              item-modifier) color="fef2c0"; desc="Item modifier changes" ;;
+              tags)          color="e6e6e6"; desc="Tag file changes" ;;
+              *)             color="ededed"; desc="" ;;
+            esac
+            gh label create "$label" --color "$color" --description "$desc" --force 2>/dev/null || true
+          done
+
+          # Apply labels to PR
+          label_args=""
+          for label in $LABELS; do
+            label_args="$label_args --label $label"
+          done
+          gh pr edit "$PR_NUMBER" $label_args

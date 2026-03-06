@@ -1,0 +1,126 @@
+name: Pack Format Consistency
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'pack.mcmeta'
+      - '.github/workflows/pack-format-check.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'pack.mcmeta'
+
+jobs:
+  # ─────────────────────────────────────────────
+  # pack.mcmeta içindeki format değerlerinin
+  # birbiriyle tutarlı olduğunu doğrular:
+  #
+  # 1. pack_format, supported_formats aralığı içinde olmalı
+  # 2. Her overlay'in format aralığı, supported_formats ile örtüşmeli
+  # 3. Overlay dizinleri gerçekten var olmalı (validate-pack zaten kontrol
+  #    ediyor ama burada da bağımsız doğrulanıyor)
+  # 4. min_format / max_format alanları supported_formats ile eşleşmeli
+  # ─────────────────────────────────────────────
+  pack-format-check:
+    name: Pack Format Consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check pack format values are consistent
+        run: |
+          FAILED=0
+
+          PACK_FORMAT=$(python3 -c "import json,sys; m=json.load(open('pack.mcmeta')); print(m['pack']['pack_format'])")
+          SUP_MIN=$(python3 -c "import json,sys; m=json.load(open('pack.mcmeta')); sf=m['pack'].get('supported_formats'); print(sf[0] if isinstance(sf,list) else sf.get('min_inclusive',''))")
+          SUP_MAX=$(python3 -c "import json,sys; m=json.load(open('pack.mcmeta')); sf=m['pack'].get('supported_formats'); print(sf[1] if isinstance(sf,list) else sf.get('max_inclusive',''))")
+          META_MIN=$(python3 -c "import json,sys; m=json.load(open('pack.mcmeta')); print(m['pack'].get('min_format',''))")
+          META_MAX=$(python3 -c "import json,sys; m=json.load(open('pack.mcmeta')); print(m['pack'].get('max_format',''))")
+
+          echo "pack_format     : $PACK_FORMAT"
+          echo "supported_formats: [$SUP_MIN, $SUP_MAX]"
+          echo "min_format      : $META_MIN"
+          echo "max_format      : $META_MAX"
+          echo ""
+
+          # 1. pack_format, supported_formats içinde olmalı
+          if [ -n "$SUP_MIN" ] && [ -n "$SUP_MAX" ]; then
+            if [ "$PACK_FORMAT" -lt "$SUP_MIN" ] || [ "$PACK_FORMAT" -gt "$SUP_MAX" ]; then
+              echo "FAIL: pack_format ($PACK_FORMAT) is outside supported_formats [$SUP_MIN, $SUP_MAX]"
+              FAILED=1
+            else
+              echo "OK: pack_format $PACK_FORMAT is within supported_formats [$SUP_MIN, $SUP_MAX]"
+            fi
+          fi
+
+          # 2. min_format / max_format (root level) supported_formats ile eşleşmeli
+          if [ -n "$META_MIN" ] && [ -n "$SUP_MIN" ] && [ "$META_MIN" != "$SUP_MIN" ]; then
+            echo "FAIL: root min_format ($META_MIN) != supported_formats min ($SUP_MIN)"
+            FAILED=1
+          else
+            [ -n "$META_MIN" ] && echo "OK: min_format $META_MIN matches supported_formats min"
+          fi
+          if [ -n "$META_MAX" ] && [ -n "$SUP_MAX" ] && [ "$META_MAX" != "$SUP_MAX" ]; then
+            echo "FAIL: root max_format ($META_MAX) != supported_formats max ($SUP_MAX)"
+            FAILED=1
+          else
+            [ -n "$META_MAX" ] && echo "OK: max_format $META_MAX matches supported_formats max"
+          fi
+
+          # 3. Overlay aralıklarının supported_formats ile örtüşmesi
+          echo ""
+          echo "Overlay format ranges:"
+          python3 << 'PYEOF'
+          import json, sys, os
+
+          with open('pack.mcmeta') as f:
+              meta = json.load(f)
+
+          failed = 0
+          sup = meta['pack'].get('supported_formats', [])
+          if isinstance(sup, list):
+              sup_min, sup_max = sup[0], sup[1]
+          else:
+              sup_min = sup.get('min_inclusive', 0)
+              sup_max = sup.get('max_inclusive', 9999)
+
+          for entry in meta.get('overlays', {}).get('entries', []):
+              d   = entry['directory']
+              fmt = entry['formats']
+              if isinstance(fmt, dict):
+                  o_min = fmt.get('min_inclusive', 0)
+                  o_max = fmt.get('max_inclusive', 9999)
+              else:
+                  o_min, o_max = fmt[0], fmt[1]
+
+              # Check overlap with supported_formats
+              overlap = o_min <= sup_max and o_max >= sup_min
+              status = "OK" if overlap else "FAIL"
+              if not overlap:
+                  failed = 1
+              print(f"  {status}: overlay '{d}' [{o_min}, {o_max}] "
+                    f"{'overlaps' if overlap else 'NO OVERLAP with'} supported_formats [{sup_min}, {sup_max}]")
+
+              # Check entry-level min_format / max_format
+              e_min = entry.get('min_format')
+              e_max = entry.get('max_format')
+              if e_min is not None and e_min != o_min:
+                  print(f"  FAIL: overlay '{d}' entry min_format ({e_min}) != formats.min_inclusive ({o_min})")
+                  failed = 1
+              if e_max is not None and e_max != o_max:
+                  print(f"  FAIL: overlay '{d}' entry max_format ({e_max}) != formats.max_inclusive ({o_max})")
+                  failed = 1
+
+          sys.exit(failed)
+          PYEOF
+
+          PY_EXIT=$?
+          [ $PY_EXIT -ne 0 ] && FAILED=1
+
+          echo ""
+          if [ $FAILED -ne 0 ]; then
+            echo "FAILED: pack.mcmeta format values are inconsistent."
+            exit 1
+          fi
+          echo "PASSED: All pack format values are consistent."
