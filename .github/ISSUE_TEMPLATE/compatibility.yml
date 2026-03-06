@@ -1,0 +1,60 @@
+name: Versiyon Uyumluluk Sorunu
+description: Belirli bir Minecraft versiyonunda çalışmayan bir şey bildirin
+title: "[COMPAT] "
+labels: [ compatibility ]
+
+body:
+  - type: input
+    id: ame_version
+    attributes:
+      label: A.M.E. Versiyonu
+      placeholder: "örn: v1.0.6-pre4"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: broken_version
+    attributes:
+      label: Sorunun Yaşandığı MC Versiyonu
+      options:
+        - "1.21.1"
+        - "1.21.2 / 1.21.3"
+        - "1.21.4"
+        - "1.21.5"
+        - "1.21.6+"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: working_version
+    attributes:
+      label: Çalışan MC Versiyonu (varsa)
+      options:
+        - Bilmiyorum
+        - "1.21.1"
+        - "1.21.2 / 1.21.3"
+        - "1.21.4"
+        - "1.21.5"
+        - "1.21.6+"
+
+  - type: input
+    id: pack_format
+    attributes:
+      label: pack_format Değeri
+      description: F3 ekranından veya pack.mcmeta'dan
+      placeholder: "örn: 61"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Sorunun Açıklaması
+      description: Hangi komut/fonksiyon çalışmıyor, ne hata veriyor?
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Hata Mesajı
+      render: text
+      placeholder: "Unknown function / Komut için geçersiz değişken / ..."

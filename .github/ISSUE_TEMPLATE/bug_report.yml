@@ -1,0 +1,75 @@
+name: Bug Report
+description: Bir hata veya beklenmedik davranış bildirin
+title: "[BUG] "
+labels: [ bug ]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bildirmeden önce lütfen mevcut issue'ları kontrol edin.
+
+  - type: input
+    id: ame_version
+    attributes:
+      label: A.M.E. Versiyonu
+      placeholder: "örn: v1.0.6-pre4"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mc_version
+    attributes:
+      label: Minecraft Versiyonu
+      options:
+        - "1.21.1"
+        - "1.21.2 / 1.21.3"
+        - "1.21.4"
+        - "1.21.5"
+        - "1.21.6+"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Ortam
+      options:
+        - Singleplayer
+        - Multiplayer (vanilla server)
+        - Multiplayer (Paper/Spigot)
+        - Multiplayer (Fabric)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Hatanın Açıklaması
+      description: Ne oluyor? Ne olmasını bekliyordun?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Yeniden Üretme Adımları
+      placeholder: |
+        1. `/function macro:...` çalıştır
+        2. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected_functions
+    attributes:
+      label: Etkilenen Fonksiyonlar
+      description: Hangi `macro:` fonksiyon(lar)ı ile ilgili?
+      placeholder: "örn: macro:flag/toggle_system, macro:lib/tick_guard"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log / Hata Çıktısı
+      description: Oyun içi hata mesajları veya `/function macro:debug/...` çıktısı
+      render: text

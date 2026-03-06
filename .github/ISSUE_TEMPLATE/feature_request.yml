@@ -1,0 +1,63 @@
+name: Feature Request
+description: Yeni bir fonksiyon, modül veya iyileştirme önerin
+title: "[FEATURE] "
+labels: [ enhancement ]
+
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Kategori
+      description: Bu özellik hangi modüle ait?
+      options:
+        - "cmd/ — Komut wrapper"
+        - "math/ — Matematik"
+        - "string/ — Metin / Ekran"
+        - "lib/ — Kütüphane / Yardımcı"
+        - "geo/ — Konum / Bölge"
+        - "inv/ — Envanter"
+        - "entity/ — Entity"
+        - "player/ — Oyuncu"
+        - "event/ — Event sistemi"
+        - "cooldown/ — Cooldown"
+        - "trigger/ — Trigger"
+        - "flag/ — Flag"
+        - "state/ — State"
+        - "log/ — Log"
+        - "dialog/ — Dialog (1.21.6+)"
+        - "Yeni modül"
+        - "Diğer"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Sorun / Motivasyon
+      description: Bu özellik olmadan ne yapamıyorsun veya ne zorlaşıyor?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Öneri
+      description: Nasıl çalışmasını istiyorsun? Fonksiyon adı ve INPUT formatı varsa yaz.
+      placeholder: |
+        macro:cmd/my_feature
+        INPUT: macro:input { player:"<n>", value:<int> }
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Mevcut Geçici Çözüm
+      description: Şu an bunu nasıl çözüyorsun?
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Breaking Change
+      options:
+        - label: Bu öneri mevcut API'yi bozabilir
