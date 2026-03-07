@@ -31,5 +31,5 @@ data remove storage macro:input message
 data remove storage macro:input level
 data remove storage macro:input color
 
-setblock -30000000 0 1601 minecraft:redstone_block
-setblock -30000000 0 1601
+setblock -30000000 0 1601 minecraft:air
+setblock -30000000 0 1601 minecraft:air
