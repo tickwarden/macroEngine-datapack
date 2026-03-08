@@ -2,6 +2,9 @@
 
 ---
 
+## v1.0.6-pre4-fix3
+- Hata düzeltmeleri ve iyileştirmeler
+
 ## v1.0.6-pre4 — 2026-03-06
 # Multi-command sistemi ve `/function macro:flag/open_toggle_system_menu` komutu
 
