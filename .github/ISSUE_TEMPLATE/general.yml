@@ -1,7 +1,8 @@
 name: Genel
 description: Yukarıdaki kategorilere uymayan her şey için
 title: "[Genel] "
-
+labels:
+  - general
 body:
   - type: textarea
     id: description
@@ -9,7 +10,6 @@ body:
       label: Açıklama
     validations:
       required: true
-
   - type: textarea
     id: extra
     attributes:
