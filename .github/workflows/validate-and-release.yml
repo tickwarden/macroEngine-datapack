@@ -630,13 +630,20 @@ jobs:
           echo "zip_name=$ZIP" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name:               ${{ inputs.version }}
-          name:                   "${{ inputs.pack_name }} ${{ inputs.version }}"
-          files:                  ${{ steps.build.outputs.zip_name }}
-          draft:                  ${{ inputs.release_type == 'draft' }}
-          prerelease:             ${{ inputs.release_type == 'prerelease' }}
-          generate_release_notes: ${{ inputs.release_generate_notes }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DRAFT_FLAG=""
+          PRERELEASE_FLAG=""
+          [ "${{ inputs.release_type }}" == "draft" ]      && DRAFT_FLAG="--draft"
+          [ "${{ inputs.release_type }}" == "prerelease" ] && PRERELEASE_FLAG="--prerelease"
+
+          NOTES_FLAG=""
+          [ "${{ inputs.release_generate_notes }}" == "true" ] && NOTES_FLAG="--generate-notes"
+
+          gh release create "${{ inputs.version }}" \
+            "${{ steps.build.outputs.zip_name }}" \
+            --title "${{ inputs.pack_name }} ${{ inputs.version }}" \
+            $DRAFT_FLAG \
+            $PRERELEASE_FLAG \
+            $NOTES_FLAG
