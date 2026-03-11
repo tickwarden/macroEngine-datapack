@@ -8,7 +8,7 @@
 # Scores written:
 # #ame.major ame.pre_version → 2
 # #ame.minor ame.pre_version → 0
-# #ame.patch ame.pre_version → 1
+# #ame.patch ame.pre_version → 2
 # #ame.pre ame.pre_version → 0 (pre-release flag; 0 = stable)
 # #ame.ver_set ame.pre_version → 1 (sentinel)
 #
@@ -23,6 +23,6 @@
 
 scoreboard players set #ame.major ame.pre_version 2
 scoreboard players set #ame.minor ame.pre_version 0
-scoreboard players set #ame.patch ame.pre_version 1
+scoreboard players set #ame.patch ame.pre_version 2
 scoreboard players set #ame.pre ame.pre_version 0
 scoreboard players set #ame.ver_set ame.pre_version 1

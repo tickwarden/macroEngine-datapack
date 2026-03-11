@@ -37,3 +37,14 @@ execute unless data storage macro:engine perm_trigger_names run data modify stor
 
 # ─── Trigger bind listesi ────────────────────────────────
 execute unless data storage macro:engine trigger_binds run data modify storage macro:engine trigger_binds set value []
+
+# ─── Player PID map ───────────────────────────────────────
+# BUG FIX v2.0.2: name → unique int map for pid-based entity targeting.
+# _pid_seq persists across reloads; player_pids keyed by player name.
+execute unless data storage macro:engine player_pids run data modify storage macro:engine player_pids set value {}
+execute unless data storage macro:engine _pid_seq run data modify storage macro:engine _pid_seq set value 0
+
+# ─── for_each_list stack ──────────────────────────────────────────────────────
+# BUG FIX v2.0.2: Stack-based nesting support for for_each_list.
+# Each call pushes a frame {func, list, i}; nested calls get their own frame.
+execute unless data storage macro:engine _felist_stack run data modify storage macro:engine _felist_stack set value []

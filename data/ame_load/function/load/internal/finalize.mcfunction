@@ -5,14 +5,14 @@
 # ============================================
 
 # ─── Test framework log block ─────────────────────────────
-setblock -30000000 0 1601 minecraft:test_block[mode=log]{mode:"log",message:"✅ [AME] v2.0.1 loaded successfully."}
+setblock -30000000 0 1601 minecraft:test_block[mode=log]{mode:"log",message:"✅ [AME] v2.0.2 loaded successfully."}
 setblock -30000000 1 1601 minecraft:redstone_block
 
 # ─── Admin summary (macro.debug tag) ─────────────────────
-tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"v2.0.1 ","color":"aqua","bold":true},{"text":"ready ","color":"green"},{"text":"· ame.pre_version → ","color":"dark_gray"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"aqua"},{"text":".","color":"dark_gray"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"aqua"},{"text":".","color":"dark_gray"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"aqua"}]
+tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"v2.0.2 ","color":"aqua","bold":true},{"text":"ready ","color":"green"},{"text":"· ame.pre_version → ","color":"dark_gray"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"aqua"},{"text":".","color":"dark_gray"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"aqua"},{"text":".","color":"dark_gray"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"aqua"}]
 
 # ─── Broadcast: yükleme tamamlandı ───────────────────────
-tellraw @a ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"v2.0.1 ","color":"aqua"},{"text":"loaded.","color":"green"}]
+tellraw @a ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"v2.0.2 ","color":"aqua"},{"text":"loaded.","color":"green"}]
 
 # ─── AME log buffer (INFO) ────────────────────────────────
 data modify storage macro:input message set value "✔ All modules initialized. Engine ready."

@@ -19,6 +19,9 @@ scoreboard objectives add health health {"text":"❤","color":"red"}
 # See: ame_load:load/internal/version_set (writer)
 # ame_load:load/internal/validate (reader / conflict check)
 scoreboard objectives add ame.pre_version dummy
+# Unique player ID — assigned once per player on first init; used for unambiguous
+# entity targeting instead of @a[name=...] (duplicate-name safe).
+scoreboard objectives add macro.pid dummy
 
 # ============================================
 # Flag Sistemi - Tick Kategorilerini Kontrol Eder

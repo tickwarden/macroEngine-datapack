@@ -5,6 +5,9 @@
 # Storage kalıcı kayıt (offline dahil), entity tag runtime hızlı erişim.
 # tag format: perm.<perm_adi>  (Java playerdata'ya kaydedilir — kalıcı)
 #
+# BUG FIX v2.0.2: Replaced @a[name=$(player),limit=1] with pid-based
+# tag assignment.
+#
 # INPUT: macro:input { player:"<n>", perm:"<izin_adi>" }
 #
 # EXAMPLE:
@@ -21,6 +24,11 @@
 # explicit upstream @s[tag=macro.admin] guard in the calling function.
 execute if entity @s unless entity @s[tag=macro.admin] run return run tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"✘ ","color":"red"},{"text":"Permission denied.","color":"red"}]
 
+# ─── Write to storage (persists offline) ─────────────────────────────────────
 $data modify storage macro:engine permissions.$(player).$(perm) set value 1b
-$tag @a[name=$(player),limit=1] add perm.$(perm)
+
+# ─── Apply runtime tag (pid-based — BUG FIX v2.0.2) ─────────────────────────
+$execute store result score $pg_pid macro.tmp run data get storage macro:engine player_pids.$(player)
+$execute as @a if score @s macro.pid = $pg_pid macro.tmp run tag @s add perm.$(perm)
+
 $tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"perm/grant ","color":"aqua"},{"text":"✔ ","color":"green"},{"text":"$(player)","color":"white"},{"text":" ← ","color":"dark_gray"},{"text":"$(perm)","color":"aqua"}]

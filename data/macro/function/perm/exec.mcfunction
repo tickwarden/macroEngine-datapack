@@ -5,6 +5,10 @@
 # OLARAK ve oyuncunun KONUMUNDA çalıştırır.
 # İzin yoksa oyuncuya hata mesajı gönderir.
 #
+# BUG FIX v2.0.2: Replaced @a[name=$(player),limit=1] with pid-based
+# targeting. Storage-level perm check (permissions.$(player).$(perm))
+# retained for offline compatibility.
+#
 # INPUT: macro:input { player:"<n>", perm:"<izin>", cmd:"<komut>" }
 #
 # EXAMPLE:
@@ -14,15 +18,22 @@
 # function macro:perm/exec with storage macro:input {}
 # ============================================
 
-# macro.admin tag her izni kapsar
-# İzin yoksa reddet
+# ─── Resolve player name → unique pid ────────────────────────────────────────
+$execute store result score $pex_pid macro.tmp run data get storage macro:engine player_pids.$(player)
+execute if score $pex_pid macro.tmp matches 0 run return 0
+
+# ─── Permission check ─────────────────────────────────────────────────────────
+# macro.admin tag bypasses all permission checks.
+# For offline checks, fall back to storage.
 data modify storage macro:engine _pex_tmp set value {result:0b}
-$execute if entity @a[name=$(player),limit=1,tag=macro.admin] run data modify storage macro:engine _pex_tmp.result set value 1b
+execute as @a if score @s macro.pid = $pex_pid macro.tmp run execute if entity @s[tag=macro.admin] run data modify storage macro:engine _pex_tmp.result set value 1b
 $execute if data storage macro:engine permissions.$(player).$(perm) run data modify storage macro:engine _pex_tmp.result set value 1b
 
-$execute if data storage macro:engine _pex_tmp{result:0b} run tellraw @a[name=$(player),limit=1] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"✘ ","color":"red"},{"text":"$(perm)","color":"yellow"},{"text":" iznine sahip değilsiniz.","color":"red"}]
+# ─── Permission denied ───────────────────────────────────────────────────────
+$execute if data storage macro:engine _pex_tmp{result:0b} run execute as @a if score @s macro.pid = $pex_pid macro.tmp run tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"✘ ","color":"red"},{"text":"$(perm)","color":"yellow"},{"text":" iznine sahip değilsiniz.","color":"red"}]
 execute if data storage macro:engine _pex_tmp{result:0b} run return 0
 
-$execute as @a[name=$(player),limit=1] at @s run $(cmd)
+# ─── Execute ─────────────────────────────────────────────────────────────────
+$execute as @a if score @s macro.pid = $pex_pid macro.tmp at @s run $(cmd)
 $tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"perm/exec ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":" [","color":"dark_gray"},{"text":"$(perm)","color":"aqua"},{"text":"] → ","color":"dark_gray"},{"text":"$(cmd)","color":"green"}]
 data remove storage macro:engine _pex_tmp
