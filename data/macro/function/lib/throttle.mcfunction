@@ -6,9 +6,9 @@
 # (unlike debounce, which preserves the last call, not the first).
 #
 # INPUT: macro:input { func:"<namespace:path>", delay:<tick>, interval:<tick>, key:"<id>" }
-# delay    = queue delay before execution (0 = immediate)
+# delay = queue delay before execution (0 = immediate)
 # interval = minimum tick interval between allowed calls
-# key      = throttle identifier (must be unique per throttle point)
+# key = throttle identifier (must be unique per throttle point)
 #
 # OUTPUT: — (returns silently if throttled)
 #

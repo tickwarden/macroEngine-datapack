@@ -9,7 +9,7 @@
 # function macro:cmd/other/multi_cmd/run_func
 #
 # NOT: Komut string'leri değil, fonksiyon path'leri beklenir.
-#      Komutlar için: macro:cmd/other/multi_cmd/run
+# Komutlar için: macro:cmd/other/multi_cmd/run
 # ============================================
 
 function macro:cmd/other/multi_cmd/internal/step_func

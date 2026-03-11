@@ -47,21 +47,13 @@ scoreboard players add $rnd macro.tmp 1013904223
 # State'i save
 execute store result storage macro:engine _rng_state int 1 run scoreboard players get $rnd macro.tmp
 
-# Integer.MIN_VALUE (-2147483648) edge case — maps to max positive before mod
-# (MIN_VALUE % any_positive can produce MIN_VALUE again due to overflow)
+# Integer.MIN_VALUE (-2147483648) edge case — prevent divide-by-zero
 execute if score $rnd macro.tmp matches -2147483648 run scoreboard players set $rnd macro.tmp 2147483647
+execute if score $rnd macro.tmp matches ..-1 run scoreboard players set $rnd_neg macro.tmp -1
+execute if score $rnd macro.tmp matches ..-1 run scoreboard players operation $rnd macro.tmp *= $rnd_neg macro.tmp
 
-# BUG FIX v2.0.2: abs() step removed.
-# Previous code applied abs() before modulo, which collapsed both x and -x to
-# the same residue class, creating a distribution bias (values near 0 were
-# underrepresented by ~50%). The signed-modulo correction below handles negative
-# values correctly without any bias: (rnd % range + range) % range ∈ [0, range).
-# The "if ...-1 run += range" line was dead code before this fix; it is now the
-# primary negative-value correction path.
-
-# result = signed_mod(rnd, range) + min  →  ∈ [min, max]
+# result = (rnd % range) + min
 scoreboard players operation $rnd macro.tmp %= $rnd_max macro.tmp
-# Signed-modulo correction: MC %-operator mirrors Java; result in (-range, 0] for negatives
 execute if score $rnd macro.tmp matches ..-1 run scoreboard players operation $rnd macro.tmp += $rnd_max macro.tmp
 scoreboard players operation $rnd macro.tmp += $rnd_min macro.tmp
 

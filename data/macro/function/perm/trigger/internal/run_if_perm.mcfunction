@@ -6,7 +6,7 @@
 # İkisi de yoksa oyuncuya permission denied mesajı gönderir.
 #
 # INPUT (makro): storage macro:engine _ptd_current
-#                = {value:<int>, func:"..." veya cmd:"...", perm:"<izin>"}
+# = {value:<int>, func:"..." veya cmd:"...", perm:"<izin>"}
 # Çağrı: AS @s (the player)
 # ============================================
 

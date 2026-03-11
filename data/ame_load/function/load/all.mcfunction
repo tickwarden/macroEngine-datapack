@@ -40,7 +40,7 @@ data modify storage macro:engine global.loaded set value 1b
 function ame_load:load/internal/version_set
 
 # ─── 7. Loaded notification ───────────────────────────────
-tellraw @a[tag=macro.debug] {"text":"[Macro Engine v2.0.1] Loaded.","color":"green"}
+tellraw @a[tag=macro.debug] {"text":"[Macro Engine v2.0.2] Loaded.","color":"green"}
 # BUG FIX v3.5: pitch:0 → pitch:1 corrected
 data modify storage macro:input sound set value "minecraft:ui.toast.challenge_complete"
 data modify storage macro:input volume set value 1
@@ -52,7 +52,7 @@ data remove storage macro:input pitch
 
 # ─── 8. Final log ────────────────────────────────────────
 # BUG FIX v1.0.4: Duplicate init block and unconditional log_count reset removed.
-data modify storage macro:input level set value "Advanced Macro Engine v2.0.1"
+data modify storage macro:input level set value "Advanced Macro Engine v2.0.2"
 data modify storage macro:input message set value "Loaded."
 data modify storage macro:input color set value "green"
 function macro:log/add with storage macro:input {}

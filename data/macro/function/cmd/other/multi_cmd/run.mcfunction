@@ -9,7 +9,7 @@
 # function macro:cmd/other/multi_cmd/run
 #
 # NOT: macro:input.list üzerinden kullanmak için
-#      macro:cmd/other/multi_cmd/from_input tercih edin.
+# macro:cmd/other/multi_cmd/from_input tercih edin.
 # ============================================
 
 function macro:cmd/other/multi_cmd/internal/step

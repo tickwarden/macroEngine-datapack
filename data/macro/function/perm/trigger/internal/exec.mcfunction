@@ -3,11 +3,11 @@
 # ============================================
 # Bind içindeki func veya cmd'yi çalıştırır.
 # func varsa → $function $(func)
-# cmd varsa  → $$(cmd)
+# cmd varsa → $$(cmd)
 # (trigger/internal/call ve call2 ile aynı mantık)
 #
 # INPUT: storage macro:engine _ptd_current
-#        = {value:<int>, [func:"..."], [cmd:"..."], perm:"..."}
+# = {value:<int>, [func:"..."], [cmd:"..."], perm:"..."}
 # Çağrı: AS @s (player)
 # ============================================
 

@@ -11,7 +11,7 @@ setblock -30000000 1 1600 minecraft:redstone_block
 
 # ─── Broadcast warning ────────────────────────────────────
 tellraw @a ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"✘ ","color":"red"},{"text":"Version conflict! ","color":"red","bold":true},{"text":"Expected ","color":"dark_gray"},{"text":"v2.0.2","color":"aqua","bold":true},{"text":" — stored scores do not match.","color":"dark_gray"}]
-tellraw @a ["",{"text":"  ","color":"dark_gray"},{"text":"→ Run ","color":"gray"},{"text":"/reload","color":"aqua","underlined":true,"click_event":{"action":"run_command","command":"/reload"},"hover_event":{"action":"show_text","value":"Click to reload"}},{"text":" to reinitialize AME.","color":"gray"}]
+tellraw @a ["",{"text":" ","color":"dark_gray"},{"text":"→ Run ","color":"gray"},{"text":"/reload","color":"aqua","underlined":true,"click_event":{"action":"run_command","command":"/reload"},"hover_event":{"action":"show_text","value":"Click to reload"}},{"text":" to reinitialize AME.","color":"gray"}]
 
 # ─── Debug channel: current score values ─────────────────
 tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"DEBUG ","color":"aqua"},{"text":"ame.pre_version scores → ","color":"dark_gray"},{"text":"major=","color":"gray"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"yellow"},{"text":" minor=","color":"gray"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"yellow"},{"text":" patch=","color":"gray"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"yellow"},{"text":" (expected: 2 0 1 pre=0)","color":"red"}]

@@ -4,8 +4,8 @@
 # Flag: #m_hud macro.Flags
 # - Auto-HUD: eğer macro:engine pb_obj ayarlıysa, progress_bar_self otomatik her tick'te çalışır
 # Enable : data modify storage macro:engine pb_obj set value "health"
-#          data modify storage macro:engine pb_max set value 20
-#          data modify storage macro:engine pb_label set value "Health"
+# data modify storage macro:engine pb_max set value 20
+# data modify storage macro:engine pb_label set value "Health"
 # Disable : data remove storage macro:engine pb_obj
 # ============================================
 
