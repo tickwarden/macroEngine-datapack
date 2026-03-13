@@ -7,7 +7,7 @@
 # Called ONLY from macro:player/init when the
 # player does not yet have an entry in player_pids.
 #
-# BUG FIX v2.0.3-pre1: Introduced to replace @a[name=...]
+# BUG FIX v2.0.3-pre2: Introduced to replace @a[name=...]
 # selectors in perm/* with unambiguous pid-based
 # targeting (duplicate-name safe for offline servers).
 #

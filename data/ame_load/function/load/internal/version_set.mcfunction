@@ -9,7 +9,7 @@
 # #ame.major ame.pre_version → 2
 # #ame.minor ame.pre_version → 0
 # #ame.patch ame.pre_version → 3
-# #ame.pre ame.pre_version → 1 (pre-release flag; 1 = pre-release)
+# #ame.pre ame.pre_version → 2 (pre-release flag; 2 = pre2)
 # #ame.ver_set ame.pre_version → 1 (sentinel)
 #
 # BUG FIX v1.0.6-pre2: Renamed $v_* fake players to #ame.* to avoid
@@ -24,5 +24,5 @@
 scoreboard players set #ame.major ame.pre_version 2
 scoreboard players set #ame.minor ame.pre_version 0
 scoreboard players set #ame.patch ame.pre_version 3
-scoreboard players set #ame.pre ame.pre_version 1
+scoreboard players set #ame.pre ame.pre_version 2
 scoreboard players set #ame.ver_set ame.pre_version 1

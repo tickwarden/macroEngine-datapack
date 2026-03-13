@@ -17,7 +17,7 @@
 # dx : <int> -- X ekseni genisligi
 # dy : <int> -- Y ekseni yuksekligi
 # dz : <int> -- Z ekseni derinligi
-# action : <string> -- Kosul saglanirsa run edilecek komut
+# invoke : <string> -- Kosul saglanirsa run edilecek komut
 #
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

@@ -14,7 +14,7 @@
 # type : <string> -- Entity type
 # tag : <string> -- Entity tag
 # distance : <float> -- Maksimum mesafe (blok)
-# action : <string> -- Kosul saglanirsa run edilecek komut
+# invoke : <string> -- Kosul saglanirsa run edilecek komut
 #
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

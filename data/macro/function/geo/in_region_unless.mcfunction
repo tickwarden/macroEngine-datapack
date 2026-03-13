@@ -12,7 +12,7 @@
 # player : <string> -- Oyuncu adi
 # x/y/z : <int> -- Bolgenin min kosesi
 # dx/dy/dz : <int> -- Bolge boyutlari
-# action : <string> -- Kosul saglanirsa run edilecek komut
+# invoke : <string> -- Kosul saglanirsa run edilecek komut
 #
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

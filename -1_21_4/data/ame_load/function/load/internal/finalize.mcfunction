@@ -13,7 +13,7 @@
 # ============================================
 
 # ─── Admin summary (macro.debug tag) ─────────────────────
-tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"aqua","bold":true},{"text":"v2.0.3-pre1 ","color":"green","bold":true},{"text":"ready · ame.pre_version → ","color":"#555555"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"yellow"},{"text":".","color":"#555555"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"yellow"},{"text":".","color":"#555555"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"yellow"}]
+tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"aqua","bold":true},{"text":"v2.0.3-pre2 ","color":"green","bold":true},{"text":"ready · ame.pre_version → ","color":"#555555"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"yellow"},{"text":".","color":"#555555"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"yellow"},{"text":".","color":"#555555"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"yellow"}]
 
 # ─── AME log buffer (INFO) ────────────────────────────────
 data modify storage macro:input message set value "✅ All modules initialized. Engine ready."
