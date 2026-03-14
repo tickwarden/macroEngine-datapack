@@ -12,9 +12,7 @@
 # ÇIKIŞ:
 #   macro:input value → "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 #
-# GU karşılaştırması:
-#   - gu:convert → function gu:convert {UUID:[I;0,1,2,3]}  (makro arg)
-#   - bu fonksiyon → macro:input value üzerinden standart AME akışı
+# Çıktı macro:input value'ya yazılır (AME standardı)
 # ============================================================
 
 # int[4] dizisini doğrudan macro:input value'dan oku

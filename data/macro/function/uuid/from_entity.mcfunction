@@ -8,12 +8,9 @@
 # ÇIKIŞ:
 #   macro:input value → "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 #
-# GU karşılaştırması:
-#   - gu:generate   → gu:main out
-#   - bu fonksiyon  → macro:input value  (AME standardı)
-#   - Entity başına scoreboard önbelleği YOK (gu:zzz/store_uuid gibi)
-#     → Her çağrıda direkt NBT'den okuma (daha temiz, her zaman doğru)
-#   - Negatif byte hatası düzeltilmiştir (bkz. extract_bytes)
+# Çıktı macro:input value'ya yazılır (AME standardı)
+# Her çağrıda direkt NBT'den okuma — her zaman güncel
+# Negatif byte hatası düzeltilmiştir (bkz. extract_bytes)
 # ============================================================
 
 # Entity UUID'sini int[4] olarak çalışma storage'ına kopyala
