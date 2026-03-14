@@ -11,6 +11,9 @@ on:
     paths:
       - '**/*.mcfunction'
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ─────────────────────────────────────────────
   # Tüm .mcfunction dosyalarındaki inline function
