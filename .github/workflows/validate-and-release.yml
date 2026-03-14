@@ -40,7 +40,7 @@ on:
       scan_dirs:
         description: '📂 Taranacak dizinler (boşlukla ayrılmış). Validation + ZIP için kullanılır.'
         required: true
-        default: 'data _pre_1_21_4 ./-1_21_4 1_21_6'
+        default: 'data _pre_1_21_4 compat_1_21_4 1_21_6'
 
       required_files:
         description: '📄 Zorunlu dosyalar (boşlukla ayrılmış). Örn: pack.mcmeta pack.png'
@@ -50,7 +50,7 @@ on:
       required_dirs:
         description: '📁 Zorunlu dizinler (boşlukla ayrılmış).'
         required: true
-        default: 'data _pre_1_21_4 ./-1_21_4 1_21_6'
+        default: 'data _pre_1_21_4 compat_1_21_4 1_21_6'
 
       required_mcfunctions:
         description: '⚙️ Varlığı kontrol edilecek .mcfunction dosyaları (boşlukla ayrılmış).'
