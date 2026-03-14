@@ -16,7 +16,7 @@
       "key": "sys",
       "label": "Modül / Sistem",
       "label_visible": true,
-      "max_length": 400000000,
+      "max_length": 400000,
       "multiline": {}
     }
   ],
