@@ -9,7 +9,7 @@
 > Files downloaded from other sites or forks may have been modified.
 > Only download from the [Releases](https://github.com/toolkitmc/macroEngine-dp/releases) page.
 
-**SHA256:** `sha256:f99aecf13b35ad672525f6ca339a0579cce50913fdbd0022deb75a3634e34061`
+**SHA256:** `sha256:e7fb21d611969a652a2fcc93ef2600564dc78ff2534de916e61aba3bc1a0ff87`
 
 ```bash
 # Windows
