@@ -16,7 +16,7 @@ scoreboard players set #ame.mismatch ame.pre_version 0
 execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.major ame.pre_version matches 2 run scoreboard players set #ame.mismatch ame.pre_version 1
 execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.minor ame.pre_version matches 0 run scoreboard players set #ame.mismatch ame.pre_version 1
 execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.patch ame.pre_version matches 3 run scoreboard players set #ame.mismatch ame.pre_version 1
-execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.pre ame.pre_version matches 0 run scoreboard players set #ame.mismatch ame.pre_version 1
+execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.pre ame.pre_version matches 4 run scoreboard players set #ame.mismatch ame.pre_version 1
 execute if score #ame.mismatch ame.pre_version matches 1 run function ame_load:load/internal/version_warn
 execute if score #ame.mismatch ame.pre_version matches 1 run return 0
 
