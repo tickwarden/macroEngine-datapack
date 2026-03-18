@@ -137,7 +137,7 @@ execute if data storage macro:output inputs{func:"with storage macro:input"} run
 execute if data storage macro:output inputs{func:"with storage macro:output"} run return 0
 
 # Doğrulama başarıyla tamamlandıysa, komutu güvenli bir şekilde yürütme aşamasına geç
-function macro:engine/call/execute_validated
+#function macro:engine/call/execute_validated
 
 # Geçici verileri temizle (Bellek yönetimi ve güvenlik için)
 data remove storage macro:output data
