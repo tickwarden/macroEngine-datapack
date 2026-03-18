@@ -3,8 +3,10 @@ data modify storage macro:output data set from storage macro:engine
 
 execute unless data storage macro:output data.global{loaded:1b} run return 0
 
-execute unless data storage macro:output data.global{version:"V2.0.3"} run return 0
+# BUG FIX: engine v2.0.4-pre1 (küçük v) saklar — V2.0.3 değil
+execute unless data storage macro:output data.global{version:"v2.0.4-pre1"} run return 0
 
+# --- Tehlikeli komutlar: injection engeli (permission-level 3 / singleplayer uyumsuz) ---
 execute if data storage macro:output inputs{func:"macro:cmd/op"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/op with storage macro:engine {}"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/op with storage macro:engine {op:{}}"} run return 0
@@ -85,6 +87,16 @@ execute if data storage macro:output inputs{func:"macro:cmd/stop with storage ma
 execute if data storage macro:output inputs{func:"macro:cmd/stop with storage macro:output {data:{}}"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/stop with storage macro:output {inputs:{}}"} run return 0
 
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:engine {}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:engine {whitelist:{}}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:input {}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:input {whitelist:{}}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:output {}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:output {whitelist:{}}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:output {data:{}}"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/whitelist with storage macro:output {inputs:{}}"} run return 0
+
 execute if data storage macro:output inputs{func:"macro:cmd/data_remove_block"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/data_remove_block with storage macro:engine {}"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/data_remove_block with storage macro:engine {data_remove_block:{}}"} run return 0
@@ -115,5 +127,18 @@ execute if data storage macro:output inputs{func:"macro:cmd/data_remove_storage 
 execute if data storage macro:output inputs{func:"macro:cmd/data_remove_storage with storage macro:output {data:{}}"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/data_remove_storage with storage macro:output {inputs:{}}"} run return 0
 
+execute if data storage macro:output inputs{func:"macro:cmd/save-all"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/save-off"} run return 0
+execute if data storage macro:output inputs{func:"macro:cmd/save-on"} run return 0
+
+# Hassas storage yollarını manipüle etmeye yönelik genel injection denemelerini engelle
+execute if data storage macro:output inputs{func:"with storage macro:engine"} run return 0
+execute if data storage macro:output inputs{func:"with storage macro:input"} run return 0
+execute if data storage macro:output inputs{func:"with storage macro:output"} run return 0
+
+# Doğrulama başarıyla tamamlandıysa, komutu güvenli bir şekilde yürütme aşamasına geç
+function macro:engine/call/execute_validated
+
+# Geçici verileri temizle (Bellek yönetimi ve güvenlik için)
 data remove storage macro:output data
 data remove storage macro:output inputs
