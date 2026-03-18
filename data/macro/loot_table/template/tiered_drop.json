@@ -1,14 +1,15 @@
 {
   "_comment": "macro:loot_table/template/tiered_drop — Entity drop template with looting-level tiers.",
   "_usage": "Copy into your own namespace. Replace 'minecraft:diamond' with your drop item. Pool 0 is base drop (always); pool 1 requires Looting I+; pool 2 requires Looting II+; pool 3 requires Looting III.",
-
   "type": "minecraft:entity",
   "pools": [
     {
       "_comment": "Base drop — always granted on player kill",
       "rolls": 1,
       "conditions": [
-        { "condition": "minecraft:killed_by_player" }
+        {
+          "condition": "minecraft:killed_by_player"
+        }
       ],
       "entries": [
         {
@@ -17,7 +18,10 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": { "min": 1, "max": 1 }
+              "count": {
+                "min": 1,
+                "max": 1
+              }
             }
           ]
         }
@@ -27,16 +31,23 @@
       "_comment": "Looting I+ bonus drop",
       "rolls": 1,
       "conditions": [
-        { "condition": "minecraft:killed_by_player" },
+        {
+          "condition": "minecraft:killed_by_player"
+        },
         {
           "condition": "minecraft:entity_properties",
-          "entity": "killer",
+          "entity": "attacker",
           "predicate": {
             "equipment": {
               "mainhand": {
                 "predicates": {
                   "minecraft:enchantments": [
-                    { "enchantments": "minecraft:looting", "levels": { "min": 1 } }
+                    {
+                      "enchantments": "minecraft:looting",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
                   ]
                 }
               }
@@ -51,7 +62,10 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": { "min": 1, "max": 1 }
+              "count": {
+                "min": 1,
+                "max": 1
+              }
             }
           ]
         }
@@ -61,16 +75,23 @@
       "_comment": "Looting II+ bonus drop",
       "rolls": 1,
       "conditions": [
-        { "condition": "minecraft:killed_by_player" },
+        {
+          "condition": "minecraft:killed_by_player"
+        },
         {
           "condition": "minecraft:entity_properties",
-          "entity": "killer",
+          "entity": "attacker",
           "predicate": {
             "equipment": {
               "mainhand": {
                 "predicates": {
                   "minecraft:enchantments": [
-                    { "enchantments": "minecraft:looting", "levels": { "min": 2 } }
+                    {
+                      "enchantments": "minecraft:looting",
+                      "levels": {
+                        "min": 2
+                      }
+                    }
                   ]
                 }
               }
@@ -85,7 +106,10 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": { "min": 1, "max": 1 }
+              "count": {
+                "min": 1,
+                "max": 1
+              }
             }
           ]
         }
@@ -95,16 +119,23 @@
       "_comment": "Looting III bonus drop",
       "rolls": 1,
       "conditions": [
-        { "condition": "minecraft:killed_by_player" },
+        {
+          "condition": "minecraft:killed_by_player"
+        },
         {
           "condition": "minecraft:entity_properties",
-          "entity": "killer",
+          "entity": "attacker",
           "predicate": {
             "equipment": {
               "mainhand": {
                 "predicates": {
                   "minecraft:enchantments": [
-                    { "enchantments": "minecraft:looting", "levels": { "min": 3 } }
+                    {
+                      "enchantments": "minecraft:looting",
+                      "levels": {
+                        "min": 3
+                      }
+                    }
                   ]
                 }
               }
@@ -119,7 +150,10 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": { "min": 1, "max": 2 }
+              "count": {
+                "min": 1,
+                "max": 2
+              }
             }
           ]
         }
