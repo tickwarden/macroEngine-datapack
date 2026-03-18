@@ -3,19 +3,6 @@
 
 ---
 
-> # ⚠️ PROJECT ARCHIVED
->
-> **Development has been discontinued due to maintenance difficulties.**
->
-> * **Active Version:** None. This project is no longer considered an active release.
-> * **Updates:** This repository will **not** receive any further updates or bug fixes.
-> * **Status:** This project will remain archived indefinitely at the developer's discretion.
->
-> ---
-> *This repository is now in read-only mode.*
-
----
-
 ## ✅ Verification
 
 > ⚠️ **This is the ONLY official source.**
