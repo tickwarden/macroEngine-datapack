@@ -1,11 +1,11 @@
 name: PR Auto-Label
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
 
 jobs:
   label:
@@ -14,11 +14,16 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      issues: write   # 🔥 bunu ekle (label create için lazım)
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # 🔥 GH CLI AUTH FIX
+      - name: Authenticate GH CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Detect changed files and apply labels
         env:
@@ -41,16 +46,12 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              # Overlay-specific changes
-              _pre_1_21_4/*)   add_label "overlay" ;;
-              compat_1_21_4/*)        add_label "overlay" ;;
-              1_21_6/*)        add_label "overlay" ;;
+              _pre_1_21_4/*|compat_1_21_4/*|1_21_6/*)
+                add_label "overlay" ;;
 
-              # Function logic
-              data/*/function/*.mcfunction | data/*/function/**/*.mcfunction)
+              data/*/function/*.mcfunction|data/*/function/**/*.mcfunction)
                 add_label "mcfunction" ;;
 
-              # Data files (loot tables, advancements, predicates, etc.)
               data/*/loot_table/*)   add_label "loot-table" ;;
               data/*/advancement/*)  add_label "advancement" ;;
               data/*/predicate/*)    add_label "predicate" ;;
@@ -58,19 +59,16 @@ jobs:
               data/*/item_modifier/*)add_label "item-modifier" ;;
               data/*/tags/*)         add_label "tags" ;;
 
-              # Pack root
               pack.mcmeta)           add_label "pack-meta" ;;
 
-              # Docs
               docs/CHANGELOG.md)     add_label "changelog" ;;
               docs/*)                add_label "documentation" ;;
 
-              # CI
               .github/*)             add_label "ci" ;;
             esac
           done <<< "$changed"
 
-          LABELS=$(echo "$LABELS" | xargs)  # trim whitespace
+          LABELS=$(echo "$LABELS" | xargs)
 
           if [ -z "$LABELS" ]; then
             echo "No matching labels to apply."
@@ -79,7 +77,6 @@ jobs:
 
           echo "Applying labels: $LABELS"
 
-          # Ensure labels exist, create if missing
           for label in $LABELS; do
             case "$label" in
               mcfunction)    color="0075ca"; desc="Changes to .mcfunction files" ;;
@@ -96,12 +93,13 @@ jobs:
               tags)          color="e6e6e6"; desc="Tag file changes" ;;
               *)             color="ededed"; desc="" ;;
             esac
-            gh label create "$label" --color "$color" --description "$desc" --force 2>/dev/null || true
+
+            gh label create "$label" --color "$color" --description "$desc" --force || true
           done
 
-          # Apply labels to PR
           label_args=""
           for label in $LABELS; do
-            label_args="$label_args --label $label"
+            label_args="$label_args --add-label $label"
           done
+
           gh pr edit "$PR_NUMBER" $label_args
