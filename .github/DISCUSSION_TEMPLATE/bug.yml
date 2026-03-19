@@ -1,0 +1,38 @@
+title: "[Bug]"
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Describe the bug in the datapack.
+      placeholder: "What goes wrong? Which function or macro fails?"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Provide steps to reproduce the bug in Minecraft.
+      placeholder: "1. Load the datapack\n2. Run /function xyz\n3. Observe the issue"
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: "Describe the intended behavior."
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: "Describe what actually happens."
+  - type: input
+    id: version
+    attributes:
+      label: Datapack Version
+      description: The version of macroEngine-dp or your custom datapack.
+      placeholder: "e.g., v2.1.0"
+  - type: input
+    id: mc_version
+    attributes:
+      label: Minecraft Version
+      description: The Minecraft version you are testing on.
+      placeholder: "e.g., 1.21.8"
