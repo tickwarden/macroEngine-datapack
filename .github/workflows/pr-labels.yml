@@ -1,4 +1,4 @@
-name: PR Auto-Label
+name: PR Auto-Label (Smart)
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -9,33 +9,30 @@ on:
 
 jobs:
   label:
-    name: Auto-Label PR
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
-      issues: write   # 🔥 bunu ekle (label create için lazım)
+      issues: write
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 🔥 GH CLI AUTH FIX
       - name: Authenticate GH CLI
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
-      - name: Detect changed files and apply labels
+      - name: Smart Label System
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          BRANCH: ${{ github.head_ref }}
         run: |
           BASE="${{ github.event.pull_request.base.sha }}"
           HEAD="${{ github.event.pull_request.head.sha }}"
 
           LABELS=""
-
-          changed=$(git diff --name-only "$BASE" "$HEAD" 2>/dev/null || git diff --name-only HEAD~1 HEAD)
 
           add_label() {
             local label="$1"
@@ -43,6 +40,30 @@ jobs:
               LABELS="$LABELS $label"
             fi
           }
+
+          echo "🔍 PR Title: $PR_TITLE"
+          echo "🌿 Branch: $BRANCH"
+
+          # 🔥 TITLE ANALYSIS (Conventional Commits style)
+          case "$PR_TITLE" in
+            feat*|feature*) add_label "feature" ;;
+            fix*|bugfix*)   add_label "bug" ;;
+            refactor*)      add_label "refactor" ;;
+            docs*)          add_label "documentation" ;;
+            chore*)         add_label "chore" ;;
+            test*)          add_label "test" ;;
+          esac
+
+          # 🔥 BRANCH ANALYSIS
+          case "$BRANCH" in
+            feature/*) add_label "feature" ;;
+            fix/*)     add_label "bug" ;;
+            hotfix/*)  add_label "hotfix" ;;
+            release/*) add_label "release" ;;
+          esac
+
+          # 🔥 FILE ANALYSIS
+          changed=$(git diff --name-only "$BASE" "$HEAD" 2>/dev/null || git diff --name-only HEAD~1 HEAD)
 
           while IFS= read -r file; do
             case "$file" in
@@ -71,35 +92,42 @@ jobs:
           LABELS=$(echo "$LABELS" | xargs)
 
           if [ -z "$LABELS" ]; then
-            echo "No matching labels to apply."
+            echo "❌ No labels found."
             exit 0
           fi
 
-          echo "Applying labels: $LABELS"
+          echo "🏷️ Labels: $LABELS"
 
+          # 🔥 CREATE LABELS (auto)
           for label in $LABELS; do
             case "$label" in
-              mcfunction)    color="0075ca"; desc="Changes to .mcfunction files" ;;
-              overlay)       color="e4e669"; desc="Version overlay changes" ;;
+              feature)       color="a2eeef"; desc="New feature" ;;
+              bug)           color="d73a4a"; desc="Bug fix" ;;
+              refactor)      color="cfd3d7"; desc="Code refactor" ;;
+              documentation) color="0075ca"; desc="Docs update" ;;
+              chore)         color="fef2c0"; desc="Maintenance" ;;
+              test)          color="5319e7"; desc="Tests" ;;
+              hotfix)        color="b60205"; desc="Hotfix" ;;
+              release)       color="0e8a16"; desc="Release" ;;
+
+              mcfunction)    color="0075ca"; desc="Function changes" ;;
+              overlay)       color="e4e669"; desc="Overlay changes" ;;
               pack-meta)     color="d93f0b"; desc="pack.mcmeta changes" ;;
               changelog)     color="0e8a16"; desc="Changelog updated" ;;
-              documentation) color="cfd3d7"; desc="Documentation changes" ;;
-              ci)            color="1d76db"; desc="CI/CD workflow changes" ;;
-              loot-table)    color="c5def5"; desc="Loot table changes" ;;
-              advancement)   color="bfd4f2"; desc="Advancement changes" ;;
-              predicate)     color="d4c5f9"; desc="Predicate changes" ;;
-              damage-type)   color="f9d0c4"; desc="Damage type changes" ;;
-              item-modifier) color="fef2c0"; desc="Item modifier changes" ;;
-              tags)          color="e6e6e6"; desc="Tag file changes" ;;
+              ci)            color="1d76db"; desc="CI/CD changes" ;;
+              loot-table)    color="c5def5"; desc="Loot table" ;;
+              advancement)   color="bfd4f2"; desc="Advancement" ;;
+              predicate)     color="d4c5f9"; desc="Predicate" ;;
+              damage-type)   color="f9d0c4"; desc="Damage type" ;;
+              item-modifier) color="fef2c0"; desc="Item modifier" ;;
+              tags)          color="e6e6e6"; desc="Tags" ;;
               *)             color="ededed"; desc="" ;;
             esac
 
             gh label create "$label" --color "$color" --description "$desc" --force || true
           done
 
-          label_args=""
+          # 🔥 APPLY LABELS (STABLE WAY)
           for label in $LABELS; do
-            label_args="$label_args --add-label $label"
+            gh pr edit "$PR_NUMBER" --add-label "$label"
           done
-
-          gh pr edit "$PR_NUMBER" $label_args
