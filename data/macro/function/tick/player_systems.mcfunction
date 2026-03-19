@@ -13,3 +13,5 @@ execute as @a[scores={macro_action=1..}] run function macro:trigger/internal/dis
 function macro:interaction/internal/tick_scan
 
 function macro:perm/trigger/internal/tick_start
+
+function macro:wand/internal/tick_scan

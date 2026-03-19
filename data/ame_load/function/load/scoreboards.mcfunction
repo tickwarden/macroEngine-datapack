@@ -16,3 +16,6 @@ scoreboard players set #m_queue macro.Flags 1
 scoreboard players set #m_player macro.Flags 1
 scoreboard players set #m_hud macro.Flags 1
 scoreboard players set #m_admin macro.Flags 1
+
+# Wand modülü — carrot_on_a_stick sağ-tık tracker
+scoreboard objectives add macro.rightClick minecraft.used:minecraft.carrot_on_a_stick

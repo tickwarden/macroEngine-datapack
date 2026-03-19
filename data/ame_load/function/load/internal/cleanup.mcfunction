@@ -58,5 +58,12 @@ tag @a remove macro.dialog_closed
 advancement revoke @a from macro:hidden/root
 
 scoreboard objectives remove macro.pid
+scoreboard objectives remove macro.rightClick
+data remove storage macro:engine wand_binds
+data remove storage macro:engine _wand_iter
+data remove storage macro:engine _wand_current
+data remove storage macro:engine _wand_unbinds
+data remove storage macro:engine _wand_filter_tag
+data remove storage macro:engine _wand_cur
 data remove storage macro:engine player_pids
 data remove storage macro:engine _pid_seq

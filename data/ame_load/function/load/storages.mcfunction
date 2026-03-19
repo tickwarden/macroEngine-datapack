@@ -27,3 +27,6 @@ function macro:uuid/internal/init
 
 # once_per_player modülü başlatma
 execute unless data storage macro:engine once_per_player run data modify storage macro:engine once_per_player set value {}
+
+# Wand modülü başlatma
+execute unless data storage macro:engine wand_binds run data modify storage macro:engine wand_binds set value []

@@ -1,4 +1,10 @@
+# macro:cmd/save-all
+# Server-only. Singleplayer'da parse hatası vermemek için
+# storage macro'su üzerinden çalıştırılır.
 execute unless function macro:tools/utils/check_all run return 0
 
-save-all
+data modify storage macro:input cmd set value "save-all"
+function macro:cmd/other/run_self with storage macro:input {}
+data remove storage macro:input cmd
+
 tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cmd/save-all","color":"aqua"}]
