@@ -1,10 +1,13 @@
 # Advanced Macro Engine — Changelog
 
 ---
+## v2.2.0-en — 2026-03-22
+### Changes
+- Translated all Turkish comments, docstrings, and in-game strings to English.
 
 ## v2.2.0 — 2026-03-22
 
-### ✨ Yeni Modüller
+#### ✨ Yeni Modüller
 
 | Modül | Açıklama |
 |-------|----------|
