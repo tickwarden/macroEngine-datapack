@@ -8,6 +8,7 @@
 |-----|----------|
 | Gereksiz 'Bilinmeyen fonksiyon' hataları | Düzeltildi |
 | Gereksiz `wand/register` hataları | Tüm satırlar yeniden yazıldı |
+| Dialog yoksa sessiz fail hataları | Düzeltildi |
 
 ---
 
