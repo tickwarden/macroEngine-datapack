@@ -1,0 +1,28 @@
+{
+  "_comment": "macro:advancement/template/challenge — Challenge-frame (purple), hidden advancement template.",
+  "_usage": "frame:challenge → purple frame + star. Suitable for hard / rare achievements.",
+  "_trigger": "advancement grant <player> only macro:advancement/template/challenge",
+  "parent": "macro:hidden/root",
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "title": {
+      "text": "Template: Challenge",
+      "color": "light_purple"
+    },
+    "description": {
+      "text": "",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}

@@ -1,0 +1,2 @@
+$tp $(player) $(x) $(y) $(z)
+$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cmd/tp_to_coords ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":" → ","color":"#555555"},{"text":"$(x) $(y) $(z)","color":"green"}]

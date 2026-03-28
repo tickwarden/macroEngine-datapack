@@ -1,0 +1,29 @@
+{
+  "_comment": "macro:loot_table/template/weighted_pool — Weight-based multi-item pool.",
+  "_usage": "Total weight: 1+3+6=10. Diamond: 10%, Gold: 30%, Iron: 60%.",
+  "_customize": "Add new {type,name,weight} entries to the entries array or or modify existing ones.",
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 6
+        }
+      ]
+    }
+  ]
+}

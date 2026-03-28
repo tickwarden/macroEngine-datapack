@@ -1,0 +1,120 @@
+{
+  "pack": {
+    "pack_format": 48,
+    "description": [
+      {
+        "text": "A.M.E.",
+        "extra": [
+          {
+            "text": " | ",
+            "color": "#ff0000",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+          },
+          {
+            "text": "by tickwarden",
+            "extra": [
+              " ",
+              {
+                "text": "| ",
+                "color": "#ff0000",
+                "bold": false,
+                "italic": false,
+                "underlined": false,
+                "strikethrough": false,
+                "obfuscated": false
+              },
+              {
+                "text": "1.21.x",
+                "color": "#e3ff57",
+                "bold": false,
+                "italic": false,
+                "underlined": true
+              }
+            ],
+            "color": "#00ff33",
+            "bold": false,
+            "italic": false
+          }
+        ],
+        "color": "#00ccff",
+        "bold": true,
+        "italic": false
+      },
+      {
+        "text": " | v2.2.3",
+        "color": "#ffaa00",
+        "bold": false,
+        "italic": false
+      }
+    ],
+    "supported_formats": {
+      "min_inclusive": 48,
+      "max_inclusive": 400000
+    },
+    "min_format": 48,
+    "max_format": 400000
+  },
+  "filter": {
+    "block": [
+      {
+        "namespace": "macro",
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      },
+      {
+        "namespace": "minecraft",
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      },
+      {
+        "namespace": "ame_load",
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      }
+    ]
+  },
+  "overlays": {
+    "entries": [
+      {
+        "directory": "_pre_1_21_4",
+        "formats": {
+          "min_inclusive": 48,
+          "max_inclusive": 61
+        }
+      },
+      {
+        "directory": "compat_1_21_4",
+        "formats": {
+          "min_inclusive": 48,
+          "max_inclusive": 61
+        }
+      },
+      {
+        "directory": "1_21_6",
+        "formats": {
+          "min_inclusive": 80,
+          "max_inclusive": 400000
+        },
+        "min_format": 80,
+        "max_format": 400000
+      },
+      {
+        "directory": "1_21_5",
+        "formats": {
+          "min_inclusive": 71,
+          "max_inclusive": 71
+        }
+      },
+      {
+        "directory": "26_1",
+        "formats": {
+          "min_inclusive": 101,
+          "max_inclusive": 101
+        },
+        "min_format": 101,
+        "max_format": 101
+      }
+    ]
+  }
+}

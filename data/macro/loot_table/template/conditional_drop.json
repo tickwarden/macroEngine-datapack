@@ -1,0 +1,29 @@
+{
+  "_comment": "macro:loot_table/template/conditional_drop — Item that drops only when killed by a player.",
+  "_usage": "Assign this loot table to a mob for a player-only drop.",
+  "_customize": "You can add extra conditions to the conditions array (e.g. random_chance).",
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "conditions": [
+            {
+              "condition": "minecraft:killed_by_player"
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

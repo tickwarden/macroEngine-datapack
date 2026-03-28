@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "hero_of_the_village": {
+      "trigger": "minecraft:hero_of_the_village"
+    }
+  },
+  "rewards": {
+    "function": "macro:hook/on_hero_of_the_village"
+  },
+  "parent": "macro:hidden/root"
+}
