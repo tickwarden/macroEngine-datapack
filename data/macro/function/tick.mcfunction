@@ -16,3 +16,5 @@ execute if score #m_hud macro.Flags matches 0 run function macro:tick/disabled
 
 execute if score #m_admin macro.Flags matches 1 run function macro:tick/admin_systems
 execute if score #m_admin macro.Flags matches 0 run function macro:tick/disabled
+
+execute store result score #online macro.onlinePlayers if entity @a
