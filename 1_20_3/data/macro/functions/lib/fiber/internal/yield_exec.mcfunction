@@ -14,4 +14,4 @@ $data modify storage macro:engine fibers._pending append value {id:"$(id)", func
 # Add dispatch entry to process_queue — runs after delay ticks
 $data modify storage macro:engine queue append value {func:"macro:lib/fiber/internal/resume_dispatch", delay:$(delay)}
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/fiber/yield ","color":"aqua"},{"text":"$(id)","color":"white"},{"text":" → ","color":"#555555"},{"text":"$(resume)","color":"aqua"},{"text":" in $(delay)t","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/fiber/yield ","color":"aqua"},{"text":"$(id)","color":"white"},{"text":" → ","color":"#555555"},{"text":"$(resume)","color":"aqua"},{"text":" in $(delay)t","color":"#555555"}]}

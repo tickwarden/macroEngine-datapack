@@ -16,4 +16,4 @@
 #    function macro:string/separator with storage macro:input {}
 # ─────────────────────────────────────────────────────────────────
 
-$tellraw $(target) ["",{"text":"──────────","color":"$(color)"},{"text":"$(label)","color":"$(color)","bold":true},{"text":"──────────","color":"$(color)"}]
+$tellraw $(target) {"text":"","extra":[{"text":"──────────","color":"$(color)"},{"text":"$(label)","color":"$(color)","bold":true},{"text":"──────────","color":"$(color)"}]}

@@ -26,4 +26,4 @@ execute if score $pl_pad macro.tmp matches 5.. run data modify storage macro:out
 execute if score $pl_pad macro.tmp matches 6.. run data modify storage macro:output result set value "000000"
 execute if score $pl_pad macro.tmp matches 7.. run data modify storage macro:output result set value "0000000"
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"string/pad_left ","color":"aqua"},{"text":"$(value) w=$(width) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"},{"text":"[NUM]","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"string/pad_left ","color":"aqua"},{"text":"$(value) w=$(width) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"},{"text":"[NUM]","color":"#555555"}]}

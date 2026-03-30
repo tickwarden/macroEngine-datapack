@@ -36,4 +36,4 @@ scoreboard players operation $lcm_a macro.tmp /= $gcd_a macro.tmp
 scoreboard players operation $lcm_a macro.tmp *= $lcm_b macro.tmp
 
 execute store result storage macro:output result int 1 run scoreboard players get $lcm_a macro.tmp
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/lcm ","color":"aqua"},{"text":"($(a),$(b)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/lcm ","color":"aqua"},{"text":"($(a),$(b)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]}

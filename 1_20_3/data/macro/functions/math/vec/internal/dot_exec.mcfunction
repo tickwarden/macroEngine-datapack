@@ -18,4 +18,4 @@ scoreboard players operation $vdax macro.tmp += $vdaz macro.tmp
 
 execute store result storage macro:output result int 1 run scoreboard players get $vdax macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/dot ","color":"aqua"},{"text":"($(ax),$(ay),$(az))·($(bx),$(by),$(bz)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"yellow"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/dot ","color":"aqua"},{"text":"($(ax),$(ay),$(az))·($(bx),$(by),$(bz)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"yellow"}]}

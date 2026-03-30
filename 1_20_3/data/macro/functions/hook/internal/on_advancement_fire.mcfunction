@@ -6,4 +6,4 @@ $data modify storage macro:engine _hook_fire_tmp set value {event:"advancement:$
 function macro:hook/internal/fire with storage macro:engine _hook_fire_tmp
 data remove storage macro:engine _hook_fire_tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"hook/on_advancement_fire ","color":"aqua"},{"text":"advancement:$(advancement)","color":"yellow"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"hook/on_advancement_fire ","color":"aqua"},{"text":"advancement:$(advancement)","color":"yellow"}]}

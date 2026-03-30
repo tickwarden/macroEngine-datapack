@@ -20,4 +20,4 @@ $execute if data storage macro:engine flags.$(from) run data modify storage macr
 $execute if data storage macro:engine flags.$(from) run data modify storage macro:output result set value 1b
 $execute unless data storage macro:engine flags.$(from) run data remove storage macro:engine flags.$(to)
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"flag/copy ","color":"aqua"},{"text":"$(from) → $(to) ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"flag/copy ","color":"aqua"},{"text":"$(from) → $(to) ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]}

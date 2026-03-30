@@ -1,8 +1,10 @@
-{
-  "condition": "minecraft:entity_properties",
-  "entity": "this",
-  "predicate": {
-    "type": "minecraft:player",
-    "nbt": "{Health:20.0f}"
+[
+  {
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+      "type": "minecraft:player",
+      "nbt": "{Health:20.0f}"
+    }
   }
-}
+]

@@ -112,4 +112,4 @@ execute if score $sin_d macro.tmp matches 90 run scoreboard players set $sin_r m
 
 scoreboard players operation $sin_r macro.tmp *= $sin_nf macro.tmp
 execute store result storage macro:output result int 1 run scoreboard players get $sin_r macro.tmp
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/sin ","color":"aqua"},{"text":"deg=$(deg) ","color":"gray"},{"text":"→ ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"},{"text":"/1000","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/sin ","color":"aqua"},{"text":"deg=$(deg) ","color":"gray"},{"text":"→ ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"},{"text":"/1000","color":"#555555"}]}

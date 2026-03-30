@@ -14,4 +14,4 @@
 #    function macro:string/tag_badge with storage macro:input {}
 # ─────────────────────────────────────────────────────────────────
 
-$tellraw $(target) ["",{"text":"[","color":"#555555","bold":false},{"text":"$(tag)","color":"$(color)","bold":true,"hoverEvent":{"action":"show_text","contents":{"text":"$(hover)","color":"gray","italic":true}}},{"text":"]","color":"#555555","bold":false}]
+$tellraw $(target) {"text":"","extra":[{"text":"[","color":"#555555","bold":false},{"text":"$(tag)","color":"$(color)","bold":true,"hoverEvent":{"action":"show_text","contents":{"text":"$(hover)","color":"gray","italic":true}}},{"text":"]","color":"#555555","bold":false}]}

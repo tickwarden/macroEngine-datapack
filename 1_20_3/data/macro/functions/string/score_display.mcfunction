@@ -17,4 +17,4 @@
 #    # Output: "Points  42" (42 from scoreboard)
 # ─────────────────────────────────────────────────────────────────
 
-$tellraw $(target) ["",{"text":"$(label)","color":"gray"},{"text":"  ","color":"#555555"},{"score":{"name":"$(player)","objective":"$(objective)"},"color":"$(color)","bold":true}]
+$tellraw $(target) {"text":"","extra":[{"text":"$(label)","color":"gray"},{"text":"  ","color":"#555555"},{"score":{"name":"$(player)","objective":"$(objective)"},"color":"$(color)","bold":true}]}

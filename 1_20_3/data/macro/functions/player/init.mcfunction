@@ -6,4 +6,4 @@ $data modify storage macro:engine players.$(player).online set value 1b
 $execute unless data storage macro:engine players.$(player).first_join_tick run execute store result storage macro:engine players.$(player).first_join_tick int 1 run scoreboard players get $epoch macro.time
 $execute store result storage macro:engine players.$(player).last_join_tick int 1 run scoreboard players get $epoch macro.time
 $execute unless data storage macro:engine player_pids.$(player) run function macro:player/internal/assign_pid with storage macro:input {}
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"player/init ","color":"aqua"},{"text":"$(player)","color":"white"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"player/init ","color":"aqua"},{"text":"$(player)","color":"white"}]}

@@ -17,4 +17,4 @@ $execute store result score $wcc_exp macro.tmp run data get storage macro:engine
 execute store result score $wcc_now macro.tmp run scoreboard players get $epoch macro.time
 
 execute if score $wcc_now macro.tmp < $wcc_exp macro.tmp run data modify storage macro:output result set value 1b
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/cooldown_check ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":" [$(tag)] → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/cooldown_check ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":" [$(tag)] → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]}

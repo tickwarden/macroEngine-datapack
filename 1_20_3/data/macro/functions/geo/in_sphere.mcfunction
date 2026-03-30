@@ -33,4 +33,4 @@ $scoreboard players set $sph_r macro.tmp $(r)
 scoreboard players operation $sph_r macro.tmp *= $sph_r macro.tmp
 
 execute if score $sph_dsq macro.tmp <= $sph_r macro.tmp run data modify storage macro:output result set value 1b
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"geo/in_sphere ","color":"aqua"},{"text":"r=$(r) dsq=","color":"gray"},{"score":{"name":"$sph_dsq","objective":"macro.tmp"},"color":"yellow"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"geo/in_sphere ","color":"aqua"},{"text":"r=$(r) dsq=","color":"gray"},{"score":{"name":"$sph_dsq","objective":"macro.tmp"},"color":"yellow"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]}

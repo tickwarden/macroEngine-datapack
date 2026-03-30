@@ -8,4 +8,4 @@ scoreboard players operation $tr_t macro.tmp += $tr_a macro.tmp
 $execute store result storage macro:engine players.$(to).$(key) int 1 run scoreboard players get $tr_t macro.tmp
 
 execute store result storage macro:output result int 1 run scoreboard players get $tr_t macro.tmp
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"player/transfer_var ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(key)","color":"aqua"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"player/transfer_var ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(key)","color":"aqua"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]}

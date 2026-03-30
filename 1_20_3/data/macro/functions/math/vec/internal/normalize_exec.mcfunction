@@ -41,4 +41,4 @@ scoreboard players operation $vnz macro.tmp *= $vn1000 macro.tmp
 scoreboard players operation $vnz macro.tmp /= $vnlen macro.tmp
 execute store result storage macro:output z int 1 run scoreboard players get $vnz macro.tmp
 
-tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/normalize ","color":"aqua"},{"text":"len=","color":"gray"},{"storage":"macro:output","nbt":"length","color":"yellow"},{"text":" → ","color":"gray"},{"storage":"macro:output","nbt":"x","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"y","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"z","color":"yellow"}]
+tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/normalize ","color":"aqua"},{"text":"len=","color":"gray"},{"storage":"macro:output","nbt":"length","color":"yellow"},{"text":" → ","color":"gray"},{"storage":"macro:output","nbt":"x","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"y","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"z","color":"yellow"}]}

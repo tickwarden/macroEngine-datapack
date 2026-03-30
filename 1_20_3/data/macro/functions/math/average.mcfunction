@@ -31,4 +31,4 @@ $execute if score $avg_c macro.tmp matches 8.. run scoreboard players add $avg_s
 scoreboard players operation $avg_s macro.tmp /= $avg_c macro.tmp
 
 execute store result storage macro:output result int 1 run scoreboard players get $avg_s macro.tmp
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/average ","color":"aqua"},{"text":"count=$(count) ","color":"gray"},{"text":"→ ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/average ","color":"aqua"},{"text":"count=$(count) ","color":"gray"},{"text":"→ ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]}

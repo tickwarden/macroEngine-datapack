@@ -28,4 +28,4 @@ scoreboard players reset $bfl_spread macro.tmp
 
 $data remove storage macro:engine batches.$(id)
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/batch/flush ","color":"aqua"},{"text":"$(id)","color":"white"},{"text":" — queued","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/batch/flush ","color":"aqua"},{"text":"$(id)","color":"white"},{"text":" — queued","color":"green"}]}

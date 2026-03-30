@@ -5,9 +5,15 @@
     }
   },
   "display": {
-    "title": { "text": "" },
-    "description": { "text": "" },
-    "icon": { "id": "minecraft:barrier" },
+    "title": {
+      "text": ""
+    },
+    "description": {
+      "text": ""
+    },
+    "icon": {
+      "item": "minecraft:barrier"
+    },
     "frame": "task",
     "show_toast": false,
     "announce_to_chat": false,

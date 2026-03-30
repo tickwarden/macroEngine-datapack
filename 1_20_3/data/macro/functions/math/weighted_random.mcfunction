@@ -56,4 +56,4 @@ $scoreboard players add $wr_acc macro.tmp $(w9)
 execute if score $wr_done macro.tmp matches 0 run execute if score $wr_roll macro.tmp < $wr_acc macro.tmp run data modify storage macro:output result set value 9
 execute if score $wr_done macro.tmp matches 0 run execute if score $wr_roll macro.tmp < $wr_acc macro.tmp run scoreboard players set $wr_done macro.tmp 1
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/weighted_random ","color":"aqua"},{"text":"total=$(total) roll=","color":"gray"},{"score":{"name":"$wr_roll","objective":"macro.tmp"},"color":"yellow"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/weighted_random ","color":"aqua"},{"text":"total=$(total) roll=","color":"gray"},{"score":{"name":"$wr_roll","objective":"macro.tmp"},"color":"yellow"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]}

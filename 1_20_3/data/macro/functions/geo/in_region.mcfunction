@@ -31,4 +31,4 @@ execute if score $rgn_z macro.tmp < $rgn_z1 macro.tmp run return 0
 execute if score $rgn_z macro.tmp > $rgn_z2 macro.tmp run return 0
 
 data modify storage macro:output result set value 1b
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"geo/in_region ","color":"aqua"},{"text":"($(x),$(y),$(z)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"geo/in_region ","color":"aqua"},{"text":"($(x),$(y),$(z)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]}

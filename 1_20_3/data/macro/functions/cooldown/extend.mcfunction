@@ -10,4 +10,4 @@ scoreboard players operation $ce_exp macro.tmp += $ce_amt macro.tmp
 
 $execute store result storage macro:engine cooldowns.$(player).$(key) int 1 run scoreboard players get $ce_exp macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cooldown/extend ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":":","color":"#555555"},{"text":"$(key)","color":"aqua"},{"text":" +$(amount)t","color":"green"},{"text":" → exp=","color":"#555555"},{"score":{"name":"$ce_exp","objective":"macro.tmp"},"color":"yellow"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cooldown/extend ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":":","color":"#555555"},{"text":"$(key)","color":"aqua"},{"text":" +$(amount)t","color":"green"},{"text":" → exp=","color":"#555555"},{"score":{"name":"$ce_exp","objective":"macro.tmp"},"color":"yellow"}]}

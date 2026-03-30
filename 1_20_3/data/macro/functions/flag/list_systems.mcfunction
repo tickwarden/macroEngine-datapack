@@ -1,7 +1,7 @@
-tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ System Flags ","color":"aqua"},{"text":"━━━━━━━━━━━━━━━━","color":"#555555"}]
-tellraw @s ["",{"text":" ","color":"#555555"},{"text":"time ","color":"white"},{"text":"#m_time ","color":"#555555"},{"score":{"name":"#m_time","objective":"macro.Flags"},"color":"green"}]
-tellraw @s ["",{"text":" ","color":"#555555"},{"text":"queue ","color":"white"},{"text":"#m_queue ","color":"#555555"},{"score":{"name":"#m_queue","objective":"macro.Flags"},"color":"green"}]
-tellraw @s ["",{"text":" ","color":"#555555"},{"text":"player ","color":"white"},{"text":"#m_player ","color":"#555555"},{"score":{"name":"#m_player","objective":"macro.Flags"},"color":"green"}]
-tellraw @s ["",{"text":" ","color":"#555555"},{"text":"hud ","color":"white"},{"text":"#m_hud ","color":"#555555"},{"score":{"name":"#m_hud","objective":"macro.Flags"},"color":"green"}]
-tellraw @s ["",{"text":" ","color":"#555555"},{"text":"admin ","color":"white"},{"text":"#m_admin ","color":"#555555"},{"score":{"name":"#m_admin","objective":"macro.Flags"},"color":"green"}]
-tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━━━━━━━━━━━━━━━━━━━━━━━","color":"#555555"}]
+tellraw @s {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ System Flags ","color":"aqua"},{"text":"━━━━━━━━━━━━━━━━","color":"#555555"}]}
+tellraw @s {"text":"","extra":[{"text":" ","color":"#555555"},{"text":"time ","color":"white"},{"text":"#m_time ","color":"#555555"},{"score":{"name":"#m_time","objective":"macro.Flags"},"color":"green"}]}
+tellraw @s {"text":"","extra":[{"text":" ","color":"#555555"},{"text":"queue ","color":"white"},{"text":"#m_queue ","color":"#555555"},{"score":{"name":"#m_queue","objective":"macro.Flags"},"color":"green"}]}
+tellraw @s {"text":"","extra":[{"text":" ","color":"#555555"},{"text":"player ","color":"white"},{"text":"#m_player ","color":"#555555"},{"score":{"name":"#m_player","objective":"macro.Flags"},"color":"green"}]}
+tellraw @s {"text":"","extra":[{"text":" ","color":"#555555"},{"text":"hud ","color":"white"},{"text":"#m_hud ","color":"#555555"},{"score":{"name":"#m_hud","objective":"macro.Flags"},"color":"green"}]}
+tellraw @s {"text":"","extra":[{"text":" ","color":"#555555"},{"text":"admin ","color":"white"},{"text":"#m_admin ","color":"#555555"},{"score":{"name":"#m_admin","objective":"macro.Flags"},"color":"green"}]}
+tellraw @s {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━━━━━━━━━━━━━━━━━━━━━━━","color":"#555555"}]}

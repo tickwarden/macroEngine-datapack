@@ -107,4 +107,4 @@ execute if score $cos_d macro.tmp matches 90 run scoreboard players set $cos_r m
 
 scoreboard players operation $cos_r macro.tmp *= $cos_nf macro.tmp
 execute store result storage macro:output result int 1 run scoreboard players get $cos_r macro.tmp
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/cos ","color":"aqua"},{"text":"deg=$(deg) ","color":"gray"},{"text":"→ ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"},{"text":"/1000","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/cos ","color":"aqua"},{"text":"deg=$(deg) ","color":"gray"},{"text":"→ ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"},{"text":"/1000","color":"#555555"}]}

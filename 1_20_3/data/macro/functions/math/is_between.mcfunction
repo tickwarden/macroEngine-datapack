@@ -20,4 +20,4 @@ data modify storage macro:output result set value 0b
 
 execute if score $ib_v macro.tmp >= $ib_lo macro.tmp run execute if score $ib_v macro.tmp <= $ib_hi macro.tmp run data modify storage macro:output result set value 1b
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/is_between ","color":"aqua"},{"text":"$(value) in [$(min),$(max)] → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/is_between ","color":"aqua"},{"text":"$(value) in [$(min),$(max)] → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]}

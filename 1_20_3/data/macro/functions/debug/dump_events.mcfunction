@@ -4,6 +4,6 @@
 #  Usage: /function macro:debug/dump_events
 # ─────────────────────────────────────────────────────────────────
 
-tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Event Registry ","color":"aqua"},{"text":"━━━━━━━━━━━━━━━━","color":"#555555"}]
-tellraw @s ["",{"text":"  ","color":"#555555"},{"text":"engine.events","color":"white"},{"text":" → ","color":"#555555"},{"storage":"macro:engine","nbt":"events","color":"light_purple","italic":false}]
-tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","color":"#555555"}]
+tellraw @s {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Event Registry ","color":"aqua"},{"text":"━━━━━━━━━━━━━━━━","color":"#555555"}]}
+tellraw @s {"text":"","extra":[{"text":"  ","color":"#555555"},{"text":"engine.events","color":"white"},{"text":" → ","color":"#555555"},{"storage":"macro:engine","nbt":"events","color":"light_purple","italic":false}]}
+tellraw @s {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","color":"#555555"}]}

@@ -43,4 +43,4 @@ execute if score $fn_v macro.tmp matches 1000000000.. run scoreboard players set
 execute if score $fn_v macro.tmp matches 1000000000.. run scoreboard players operation $fn_v macro.tmp /= $fn_div macro.tmp
 execute if score $fn_v macro.tmp matches 1000000000.. run execute store result storage macro:output short int 1 run scoreboard players get $fn_v macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"string/format_number ","color":"aqua"},{"text":"$(value) → ","color":"gray"},{"storage":"macro:output","nbt":"short","color":"green"},{"storage":"macro:output","nbt":"suffix","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"string/format_number ","color":"aqua"},{"text":"$(value) → ","color":"gray"},{"storage":"macro:output","nbt":"short","color":"green"},{"storage":"macro:output","nbt":"suffix","color":"green"}]}

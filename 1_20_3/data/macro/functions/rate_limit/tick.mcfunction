@@ -5,7 +5,7 @@
 scoreboard players remove @a[scores={macro.rl_cooldown=1..}] macro.rl_cooldown 1
 
 # Notify player when cooldown ends
-execute as @a[scores={macro.rl_cooldown=0}] if score @s macro.rl_violations matches 1.. run tellraw @s ["",{"text":"[Rate Limit] ","color":"green"},{"text":"Cooldown expired.","color":"gray"}]
+execute as @a[scores={macro.rl_cooldown=0}] if score @s macro.rl_violations matches 1.. run tellraw @s {"text":"","extra":[{"text":"[Rate Limit] ","color":"green"},{"text":"Cooldown expired.","color":"gray"}]}
 
 # Timer for counter reset
 scoreboard players add #rl_global_timer macro.rl_timer 1

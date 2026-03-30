@@ -10,7 +10,7 @@
   },
   "display": {
     "icon": {
-      "id": "minecraft:gold_ingot"
+      "item": "minecraft:gold_ingot"
     },
     "title": {
       "text": "Template: Goal",

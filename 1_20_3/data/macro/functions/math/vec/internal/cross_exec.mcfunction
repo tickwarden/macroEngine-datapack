@@ -37,4 +37,4 @@ scoreboard players operation $vcay2 macro.tmp *= $vcbx2 macro.tmp
 scoreboard players operation $vcax2 macro.tmp -= $vcay2 macro.tmp
 execute store result storage macro:output z int 1 run scoreboard players get $vcax2 macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/cross ","color":"aqua"},{"text":"($(ax),$(ay),$(az))×($(bx),$(by),$(bz)) → ","color":"gray"},{"storage":"macro:output","nbt":"x","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"y","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"z","color":"yellow"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/cross ","color":"aqua"},{"text":"($(ax),$(ay),$(az))×($(bx),$(by),$(bz)) → ","color":"gray"},{"storage":"macro:output","nbt":"x","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"y","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"z","color":"yellow"}]}

@@ -13,4 +13,4 @@ scoreboard players operation $dvm_v macro.tmp %= $dvm_d macro.tmp
 execute if score $dvm_v macro.tmp matches ..-1 run scoreboard players operation $dvm_v macro.tmp += $dvm_d macro.tmp
 execute store result storage macro:output remainder int 1 run scoreboard players get $dvm_v macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/divmod ","color":"aqua"},{"text":"($(value)/$(divisor))","color":"gray"},{"text":" → ","color":"#555555"},{"text":"q=","color":"gray"},{"storage":"macro:output","nbt":"quotient","color":"green"},{"text":" r=","color":"gray"},{"storage":"macro:output","nbt":"remainder","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/divmod ","color":"aqua"},{"text":"($(value)/$(divisor))","color":"gray"},{"text":" → ","color":"#555555"},{"text":"q=","color":"gray"},{"storage":"macro:output","nbt":"quotient","color":"green"},{"text":" r=","color":"gray"},{"storage":"macro:output","nbt":"remainder","color":"green"}]}

@@ -6,4 +6,4 @@ execute if score $ftgl macro.tmp matches 1 run data modify storage macro:output 
 
 $execute if score $ftgl macro.tmp matches 0 run data modify storage macro:engine flags.$(key) set value 1b
 execute if score $ftgl macro.tmp matches 0 run data modify storage macro:output result set value 1b
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"flag/toggle ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(key)","color":"aqua"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"flag/toggle ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(key)","color":"aqua"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"result","color":"green"}]}

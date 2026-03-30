@@ -25,4 +25,4 @@ scoreboard players operation $s3_a macro.tmp += $s3_c macro.tmp
 execute if score $s3_a macro.tmp matches 2147483647.. run scoreboard players set $s3_a macro.tmp 2147483647
 
 execute store result storage macro:output result int 1 run scoreboard players get $s3_a macro.tmp
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/sum3 ","color":"aqua"},{"text":"($(a)+$(b)+$(c)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/sum3 ","color":"aqua"},{"text":"($(a)+$(b)+$(c)) → ","color":"gray"},{"storage":"macro:output","nbt":"result","color":"green"}]}

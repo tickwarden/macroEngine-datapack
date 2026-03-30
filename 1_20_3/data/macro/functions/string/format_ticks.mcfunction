@@ -15,4 +15,4 @@ scoreboard players operation $ft_s macro.tmp %= $ft_60 macro.tmp
 execute store result storage macro:output minutes int 1 run scoreboard players get $ft_m macro.tmp
 execute store result storage macro:output seconds int 1 run scoreboard players get $ft_s macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"string/format_ticks ","color":"aqua"},{"text":"$(ticks)t","color":"white"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"minutes","color":"green"},{"text":"m ","color":"#555555"},{"storage":"macro:output","nbt":"seconds","color":"green"},{"text":"s","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"string/format_ticks ","color":"aqua"},{"text":"$(ticks)t","color":"white"},{"text":" → ","color":"#555555"},{"storage":"macro:output","nbt":"minutes","color":"green"},{"text":"m ","color":"#555555"},{"storage":"macro:output","nbt":"seconds","color":"green"},{"text":"s","color":"#555555"}]}

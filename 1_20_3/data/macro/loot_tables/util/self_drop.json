@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:blocks/stone"
+          "name": "minecraft:blocks/stone"
         }
       ]
     }

@@ -23,4 +23,4 @@ execute unless data storage macro:engine wand_binds run data modify storage macr
 
 $data modify storage macro:engine wand_binds append value {tag:"$(tag)", cmd:"$(cmd)",func:"$(func)"}
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/register ","color":"aqua"},{"text":"✔ ","color":"green"},{"text":"$(tag)","color":"white"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/register ","color":"aqua"},{"text":"✔ ","color":"green"},{"text":"$(tag)","color":"white"}]}

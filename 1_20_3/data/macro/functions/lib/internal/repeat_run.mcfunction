@@ -1,5 +1,5 @@
 execute store result score $rep_r macro.tmp run data get storage macro:engine _repeat.remaining
-execute if score $rep_r macro.tmp matches ..0 run execute as @a[tag=macro.debug] run tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/repeat ","color":"aqua"},{"text":"DONE ","color":"green"},{"text":"all iterations completed","color":"#555555"}]
+execute if score $rep_r macro.tmp matches ..0 run execute as @a[tag=macro.debug] run tellraw @s {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/repeat ","color":"aqua"},{"text":"DONE ","color":"green"},{"text":"all iterations completed","color":"#555555"}]}
 execute if score $rep_r macro.tmp matches ..0 run return 0
 
 function macro:lib/internal/repeat_call with storage macro:engine _repeat

@@ -4,4 +4,4 @@ execute unless dimension minecraft:overworld run return 0
 execute unless entity @s[gamemode=creative] run return 0
 
 $ban-ip $(player) $(reason)
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cmd/ban_ip ","color":"aqua"},{"text":"$(player)","color":"white"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cmd/ban_ip ","color":"aqua"},{"text":"$(player)","color":"white"}]}

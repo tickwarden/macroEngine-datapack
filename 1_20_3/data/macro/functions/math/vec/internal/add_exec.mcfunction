@@ -12,4 +12,4 @@ execute store result storage macro:output x int 1 run scoreboard players get $vx
 execute store result storage macro:output y int 1 run scoreboard players get $vy macro.tmp
 execute store result storage macro:output z int 1 run scoreboard players get $vz macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/add ","color":"aqua"},{"text":"($(ax),$(ay),$(az))+($(bx),$(by),$(bz)) → ","color":"gray"},{"storage":"macro:output","nbt":"x","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"y","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"z","color":"yellow"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"math/vec/add ","color":"aqua"},{"text":"($(ax),$(ay),$(az))+($(bx),$(by),$(bz)) → ","color":"gray"},{"storage":"macro:output","nbt":"x","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"y","color":"yellow"},{"text":",","color":"gray"},{"storage":"macro:output","nbt":"z","color":"yellow"}]}

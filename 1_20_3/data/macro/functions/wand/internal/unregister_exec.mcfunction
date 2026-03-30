@@ -14,4 +14,4 @@ $data modify storage macro:engine _wand_filter_tag set value "$(tag)"
 function macro:wand/internal/unbind_filter
 data remove storage macro:engine _wand_unbinds
 data remove storage macro:engine _wand_filter_tag
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/unregister ","color":"aqua"},{"text":"✘ ","color":"red"},{"text":"$(tag)","color":"white"},{"text":" removed","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/unregister ","color":"aqua"},{"text":"✘ ","color":"red"},{"text":"$(tag)","color":"white"},{"text":" removed","color":"#555555"}]}

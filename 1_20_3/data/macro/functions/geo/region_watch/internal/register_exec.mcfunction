@@ -27,4 +27,4 @@ execute if data storage macro:input on_leave run data modify storage macro:engin
 execute if data storage macro:input on_enter_cmd run data modify storage macro:engine region_watches[-1].on_enter_cmd set from storage macro:input on_enter_cmd
 execute if data storage macro:input on_leave_cmd run data modify storage macro:engine region_watches[-1].on_leave_cmd set from storage macro:input on_leave_cmd
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"geo/region_watch/register ","color":"aqua"},{"text":"$(id)","color":"white"},{"text":" ($(x1),$(y1),$(z1))→($(x2),$(y2),$(z2))","color":"#555555"}]
+$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"geo/region_watch/register ","color":"aqua"},{"text":"$(id)","color":"white"},{"text":" ($(x1),$(y1),$(z1))→($(x2),$(y2),$(z2))","color":"#555555"}]}
