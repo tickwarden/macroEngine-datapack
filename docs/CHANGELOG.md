@@ -4,10 +4,10 @@
 
 ## v2.2.5 — 2026-03-30
 
-### ♻️ 1.20.x Overlay (1_20_3) Yeniden Yazıldı
+### ♻️ 1.20.x Overlay (1_20_3) Eklendi
 | Özellik | Açıklama |
 |-----|----------|
-| Overlay sistemi | `1_20_3` tamamen sıfırdan yazıldı |
+| Overlay sistemi | `1_20_3` eklendi |
 | Component → NBT | 1.21+ item components kaldırıldı |
 | Legacy uyum | Tüm item işlemleri NBT tabanına geri alındı |
 | İzolasyon | Overlay artık root pack’ten bağımsız |
