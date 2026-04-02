@@ -5,4 +5,4 @@
 # condition:""                    → always run (no predicate check)
 # condition:"macro:is_daytime"   → only run when predicate passes
 
-$execute if predicate $(condition) run function $(fn)
+$execute unless data storage macro:tick_work channel{condition:""} run execute if predicate $(condition) run function $(fn)
