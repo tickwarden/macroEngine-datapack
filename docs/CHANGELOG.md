@@ -2,6 +2,65 @@
 
 ---
 
+## v2.2.7 — 2026-04-02
+
+### ✨ Yeni Fonksiyonlar
+
+#### `math/`
+
+| Fonksiyon | Girdi | Çıkış | Açıklama |
+|---|---|---|---|
+| `math/round` | `{value, step}` | `macro:output result` | `value`'yu en yakın `step` katına yuvarlar. Negatif değerler için sıfırdan uzağa yuvarlar. `step ≤ 0` ise `return fail`. |
+| `math/sign_nonzero` | `{value}` | `macro:output result` | Negatifler için `-1`, sıfır ve pozitifler için `1` döndürür. Yön çarpanı gereken durumlarda `math/sign`'ın sıfır üretmediği alternatifi. |
+
+#### `string/`
+
+| Fonksiyon | Girdi | Çıkış | Açıklama |
+|---|---|---|---|
+| `string/truncate` | `{player, text, suffix, truncated}` | `macro:output text` | Oyuncunun actionbar'ına text yazar; `truncated:1b` ise suffix ekler. mcfunction runtime'da string uzunluğu ölçemediğinden truncation kararı çağıran tarafından verilir. |
+| `string/pluralize` | `{count, singular, plural}` | `macro:output result`, `macro:output count` | `count == 1` ise singular, aksi hâlde plural döndürür. |
+
+#### `player/`
+
+| Fonksiyon | Girdi | Çıkış | Açıklama |
+|---|---|---|---|
+| `player/get_armor` | `{player}` | `result` (int), `toughness` (int ×1000), `found` | `minecraft:armor` ve `minecraft:armor_toughness` attribute base değerlerini döndürür. |
+| `player/is_sneaking` | `{player}` | `result` (1b/0b), `found` | `macro:is_sneaking` predicate ile çömelme durumunu kontrol eder. |
+| `player/is_sprinting` | `{player}` | `result` (1b/0b), `found` | `macro:is_sprinting` predicate ile sprint durumunu kontrol eder. |
+
+#### `entity/`
+
+| Fonksiyon | Girdi | Çıkış | Açıklama |
+|---|---|---|---|
+| `entity/clear_effects` | `{type, tag}` | — | `type` + `tag` filtresiyle eşleşen tüm entity'lerden aktif efektleri temizler. |
+| `entity/set_health` | `{type, tag, amount}` | — | Önce `instant_damage 255` ile HP'yi sıfırlar, ardından `instant_health` amplifier'ı `amount` olarak uygular. 1.20.5+ entity NBT direct write kaldırıldığından effect tabanlı yaklaşım kullanılır. |
+| `entity/nearest` | `{player, type, radius, func}` | — | Oyuncuya en yakın `type` entity'yi bulur ve `func`'ı o entity olarak çalıştırır. |
+
+#### `nbt/`
+
+| Fonksiyon | Girdi | Açıklama |
+|---|---|---|
+| `nbt/merge` | `{src_storage, src_path, dst_storage, dst_path}` | `src_path` compound'ını `dst_path`'e merge eder; mevcut key'ler üzerine yazılır, eksik key'ler eklenir. |
+| `nbt/first` | `{src_storage, src_path, dst_storage, dst_path}` | `src_path` listesinin `[0]` elemanını `dst_path`'e kopyalar. Liste boşsa sessizce başarısız olur. |
+
+#### `flag/`
+
+| Fonksiyon | Girdi | Çıkış | Açıklama |
+|---|---|---|---|
+| `flag/set_if` | `{key, score_holder, objective, matches}` | `macro:output result` | Scoreboard koşulu sağlanırsa flag'i set eder. `matches` MC range syntax'ını destekler (`1..`, `..0`, `2..5`). |
+| `flag/any` | `{key_a, key_b}` | `result`, `result_a`, `result_b` | İki flag'den herhangi biri set edilmişse `result:1b` döndürür. Sonuç flag'leri doğrudan `macro:engine flags.*` üzerinden okunur (0b path bulunsa bile false negatif vermez). |
+
+### 🐛 Düzeltilen Hatalar (yeni dosyalarda)
+
+| Dosya | Hata | Düzeltme |
+|---|---|---|
+| `string/truncate` | `data get storage <string>` → her zaman 1 döner, uzunluk ölçmez | String length hesabı kaldırıldı; `truncated` parametresi çağıran tarafından belirlenir |
+| `string/pluralize` | Storage key `_plr_p macro.tmp` → nokta path olarak parse edilir (`_plr_p.macro` compound, `tmp` inner key) | Key adları `_plr_singular` / `_plr_plural` olarak düzeltildi |
+| `entity/set_health` | `data modify entity @s Health set value $(amount)f` → entity NBT direct write 1.20.5+ kaldırıldı | `instant_damage 255` + `instant_health $(amount)` effect zinciriyle değiştirildi |
+| `flag/any` | `execute if data storage macro:output result_a` → path `0b` ile set edilmiş olsa bile varlık kontrolü `true` döner | `flags.$(key)` doğrudan scoreboard üzerinden kontrol edilecek şekilde yeniden yazıldı |
+
+---
+
 ## v2.2.6 — 2026-03-30
 
 ### ♻️ 1.20.x Overlay (1_20_3) Eklendi
