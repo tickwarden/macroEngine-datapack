@@ -46,6 +46,6 @@ data modify storage macro:engine tick.channels append value {id:"queue_systems",
 data modify storage macro:engine tick.channels append value {id:"hud_systems",enabled:1b,rate:2,offset:1,fn:"macro:tick/hud_systems",condition:""}
 
 # admin_systems — admin tooling; every 4 ticks, offset 2
-data modify storage macro:engine tick.channels append value {id:"admin_systems",enabled:1b,rate:4,offset:2,fn:"macro:tick/admin_systems",condition:""}
+data modify storage macro:engine tick.channels append value {id:"admin_systems",enabled:1b,rate:4,offset:2,fn:"macro:tick/admin_systems",condition:"macro:is_creative"}
 
 data modify storage macro:engine tick.channels append value {id:"main_systems",enabled:1b,rate:4,offset:2,fn:"macro:tick",condition:""}
