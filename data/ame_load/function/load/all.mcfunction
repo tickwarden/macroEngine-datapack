@@ -26,14 +26,6 @@ function ame_load:load/internal/version_set
 execute if score #ame.pre ame.pre_version matches 1.. run tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"Loaded. ","color":"green"},[{"text":"v","color":"aqua"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"aqua","bold":true},{"text":".","color":"aqua"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"aqua","bold":true},{"text":".","color":"aqua"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"aqua","bold":true},{"text":"-pre","color":"#ff8800"},{"score":{"name":"#ame.pre","objective":"ame.pre_version"},"color":"#ff8800","bold":true}]]
 execute if score #ame.pre ame.pre_version matches ..0 run tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"Loaded. ","color":"green"},[{"text":"v","color":"aqua"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"aqua","bold":true},{"text":".","color":"aqua"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"aqua","bold":true},{"text":".","color":"aqua"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"aqua","bold":true}]]
 
-data modify storage macro:input sound set value "minecraft:ui.toast.challenge_complete"
-data modify storage macro:input volume set value 1
-data modify storage macro:input pitch set value 1
-function macro:cmd/sound_all with storage macro:input {}
-data remove storage macro:input sound
-data remove storage macro:input volume
-data remove storage macro:input pitch
-
 data modify storage macro:input level set value "Advanced Macro Engine"
 data modify storage macro:input message set value "Loaded."
 data modify storage macro:input color set value "green"
