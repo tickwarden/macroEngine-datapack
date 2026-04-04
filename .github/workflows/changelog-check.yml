@@ -42,15 +42,14 @@ jobs:
             [ "$file" = "docs/CHANGELOG.md" ] && has_changelog=1
 
             # Kod değişikliği sayılan dosyalar
-            case "$file" in
-              data/**/*.mcfunction | data/**/*.json | \
-              _pre_1_21_4/**/*.mcfunction | _pre_1_21_4/**/*.json | \
-              compat_1_21_4/**/*.mcfunction | compat_1_21_4/**/*.json|compat_1_21_4/**/*.mcfunction | compat_1_21_4/**/*.json | \
-              1_21_6/**/*.mcfunction | 1_21_6/**/*.json | \
-              pack.mcmeta)
-                has_code=1
-                ;;
-            esac
+            # Not: bash case içinde ** glob çalışmaz, grep -E kullanıyoruz
+            if echo "$file" | grep -qE \
+              '^(data|_pre_1_21_4|compat_1_21_4|1_20_3|1_21_4|1_21_5|1_21_6|26_1)/.*\.(mcfunction|json)$'; then
+              has_code=1
+            fi
+
+            [ "$file" = "pack.mcmeta" ] && has_code=1
+
           done <<< "$changed"
 
           if [ $has_code -eq 0 ]; then
