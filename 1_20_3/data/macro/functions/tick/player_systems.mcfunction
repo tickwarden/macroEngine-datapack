@@ -20,4 +20,3 @@ function macro:hook/internal/tick_scan
 
 function macro:geo/region_watch/internal/tick_scan
 
-function macro:rate_limit/tick
