@@ -6,7 +6,6 @@
 $data modify storage macro:engine _hook_fire_event set value "$(event)"
 
 # Rate limit check — block event if player is throttled
-execute unless function macro:rate_limit/check_hook run data modify storage macro:engine _hook_iter set from storage macro:engine hook_binds
 execute if data storage macro:engine _hook_iter run function macro:hook/internal/dispatch
 
 data remove storage macro:engine _hook_iter

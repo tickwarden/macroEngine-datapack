@@ -45,17 +45,6 @@ scoreboard objectives add macro.hook_dim_changed dummy
 # hook/trade — villager_trade advancement-based
 scoreboard objectives add macro.hook_traded dummy
 
-# Rate Limit module scoreboards
-scoreboard objectives add macro.rl_counter dummy "RL: Action Counter"
-scoreboard objectives add macro.rl_violations dummy "RL: Total Violations"
-scoreboard objectives add macro.rl_cooldown dummy "RL: Cooldown Ticks"
-scoreboard objectives add macro.rl_max dummy "RL: Max Actions/Sec"
-scoreboard objectives add macro.rl_timer dummy "RL: Timer (internal)"
-
-# Rate Limit config
-function macro:rate_limit/config/limits
-
-tellraw @a[tag=macro.debug] ["",{"text":"[macroEngine] ","color":"aqua"},{"text":"Rate Limit module initialized","color":"gray"}]
 
 # Tick channel dispatch
 scoreboard objectives add macro.tick dummy
