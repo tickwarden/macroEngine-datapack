@@ -60,20 +60,20 @@ jobs:
           fetch-depth: 0
 
       - name: Validate inputs
+        env:
+          PF: ${{ inputs.pack_format }}
+          SMIN: ${{ inputs.supported_min }}
+          SMAX: ${{ inputs.supported_max }}
         run: |
-          PF="${{ inputs.pack_format }}"
-          SMIN="${{ inputs.supported_min }}"
-          SMAX="${{ inputs.supported_max }}"
-
-          if ! echo "$PF" | grep -qE '^\d+$'; then
+          if ! echo "$PF" | grep -qE '^[0-9]+$'; then
             echo "FAIL: pack_format tamsayı olmalı, alınan: '$PF'"
             exit 1
           fi
-          if ! echo "$SMIN" | grep -qE '^\d+$'; then
+          if ! echo "$SMIN" | grep -qE '^[0-9]+$'; then
             echo "FAIL: supported_min tamsayı olmalı, alınan: '$SMIN'"
             exit 1
           fi
-          if ! echo "$SMAX" | grep -qE '^\d+$'; then
+          if ! echo "$SMAX" | grep -qE '^[0-9]+$'; then
             echo "FAIL: supported_max tamsayı olmalı, alınan: '$SMAX'"
             exit 1
           fi
@@ -88,14 +88,19 @@ jobs:
           echo "OK: Girdiler geçerli."
 
       - name: Apply changes to pack.mcmeta
+        env:
+          PF: ${{ inputs.pack_format }}
+          SMIN: ${{ inputs.supported_min }}
+          SMAX: ${{ inputs.supported_max }}
+          OVERLAY_RAW: ${{ inputs.overlay_updates }}
         run: |
           python3 << 'PYEOF'
           import json, os, sys
 
-          pf   = int("${{ inputs.pack_format }}")
-          smin = int("${{ inputs.supported_min }}")
-          smax = int("${{ inputs.supported_max }}")
-          overlay_raw = """${{ inputs.overlay_updates }}""".strip()
+          pf   = int(os.environ['PF'])
+          smin = int(os.environ['SMIN'])
+          smax = int(os.environ['SMAX'])
+          overlay_raw = os.environ.get('OVERLAY_RAW', '').strip()
 
           with open('pack.mcmeta', 'r', encoding='utf-8') as f:
               meta = json.load(f)
@@ -110,7 +115,6 @@ jobs:
               'max_inclusive': smax
           }
 
-          # min_format / max_format root alanları varsa güncelle (varsa)
           if 'min_format' in meta['pack']:
               meta['pack']['min_format'] = smin
           if 'max_format' in meta['pack']:
@@ -119,7 +123,6 @@ jobs:
           print(f"pack_format      : {old_pf} → {pf}")
           print(f"supported_formats: [{old_smin}, {old_smax}] → [{smin}, {smax}]")
 
-          # Overlay güncellemeleri
           if overlay_raw:
               entries = {e['directory']: e for e in meta.get('overlays', {}).get('entries', [])}
               for line in overlay_raw.splitlines():
@@ -139,7 +142,6 @@ jobs:
                           'min_inclusive': o_min,
                           'max_inclusive': o_max
                       }
-                      # min_format / max_format overlay entry'de varsa güncelle
                       if 'min_format' in entries[directory]:
                           entries[directory]['min_format'] = o_min
                       if 'max_format' in entries[directory]:
