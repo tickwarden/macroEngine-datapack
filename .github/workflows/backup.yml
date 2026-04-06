@@ -1,104 +1,77 @@
-name: "Repository Backup"
+name: Repository Backup
 
 on:
   schedule:
-    # Backup every Sunday at 03:00 UTC
+    # Weekly backup (every Sunday at 03:00 UTC)
     - cron: '0 3 * * 0'
+
+    # Monthly backup release (1st day of every month at 03:00 UTC)
+    - cron: '0 3 1 * *'
+
   workflow_dispatch:
     inputs:
       reason:
-        description: 'Reason for manual backup'
+        description: Reason for manual backup
         required: false
-        default: 'Manual backup requested'
+        default: Manual backup requested
 
 jobs:
   backup:
     name: Create Repository Backup
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout repository (full history)
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Full git history
-        
-    - name: Create backup archive
-      run: |
-        # Get current date for backup filename
-        BACKUP_DATE=$(date +'%Y-%m-%d_%H-%M-%S')
-        BACKUP_NAME="macroEngine-dp-backup-${BACKUP_DATE}"
-        
-        echo "Creating backup: ${BACKUP_NAME}"
-        
-        # Create archive excluding .git directory
-        tar -czf "${BACKUP_NAME}.tar.gz" \
-          --exclude='.git' \
-          --exclude='node_modules' \
-          --exclude='*.log' \
-          .
-        
-        # Create git bundle (includes full history)
-        git bundle create "${BACKUP_NAME}.bundle" --all
-        
-        # Generate manifest
-        cat > backup-manifest.txt << EOF
-        Backup Information
-        ==================
-        Date: $(date -u)
-        Repository: macroEngine-dp
-        Commit: $(git rev-parse HEAD)
-        Branch: $(git rev-parse --abbrev-ref HEAD)
-        Tags: $(git tag -l | wc -l) tags
-        Commits: $(git rev-list --count HEAD) commits
-        
-        Archive Contents:
-        $(tar -tzf "${BACKUP_NAME}.tar.gz" | head -20)
-        ... (showing first 20 files)
-        
-        Backup Type: ${{ github.event_name == 'schedule' && 'Scheduled' || 'Manual' }}
-        ${{ github.event.inputs.reason && format('Reason: {0}', github.event.inputs.reason) || '' }}
-        EOF
-        
-        ls -lh ${BACKUP_NAME}*
-        
-    - name: Upload backup artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: repository-backup-${{ github.run_number }}
-        path: |
-          *.tar.gz
-          *.bundle
-          backup-manifest.txt
-        retention-days: 90
-        
-    - name: Create backup release (monthly)
-      if: github.event.schedule == '0 3 1 * *'  # First Sunday of month
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: backup-${{ github.run_number }}
-        name: Monthly Backup - ${{ github.event.repository.updated_at }}
-        body: |
-          Automated monthly backup of macroEngine-dp repository.
-          
-          This backup includes:
-          - Full source code archive
-          - Complete git history bundle
-          - Repository metadata
-          
-          To restore from git bundle:
-          ```bash
-          git clone macroEngine-dp-backup-*.bundle macroEngine-dp
-          ```
-        files: |
-          *.tar.gz
-          *.bundle
-          backup-manifest.txt
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Notify on failure
-      if: failure()
-      run: |
-        echo "::error::Backup job failed! Please investigate."
+      - name: Checkout repository (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create backup archive
+        run: |
+          BACKUP_DATE=$(date +'%Y-%m-%d_%H-%M-%S')
+          BACKUP_NAME="macroEngine-dp-backup-${BACKUP_DATE}"
+
+          echo "Creating backup: ${BACKUP_NAME}"
+
+          cat > backup-manifest.txt << EOF
+          Backup Information
+          ==================
+          Date: $(date -u)
+          Repository: macroEngine-dp
+          Commit: $(git rev-parse HEAD)
+          Branch: $(git rev-parse --abbrev-ref HEAD)
+          EOF
+
+          tar --warning=no-file-changed -czf "${BACKUP_NAME}.tar.gz" \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='*.log' \
+            --exclude="${BACKUP_NAME}.tar.gz" \
+            . || [[ $? -eq 1 ]]
+
+          git bundle create "${BACKUP_NAME}.bundle" --all
+
+          ls -lh ${BACKUP_NAME}*
+
+      - name: Upload backup artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-backup-${{ github.run_number }}
+          path: |
+            *.tar.gz
+            *.bundle
+            backup-manifest.txt
+          retention-days: 90
+
+      - name: Create backup release (monthly)
+        if: github.event_name == 'schedule' && github.event.schedule == '0 3 1 * *'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: backup-${{ github.run_number }}
+          name: Monthly Backup - ${{ github.run_number }}
+          files: |
+            *.tar.gz
+            *.bundle
+            backup-manifest.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
