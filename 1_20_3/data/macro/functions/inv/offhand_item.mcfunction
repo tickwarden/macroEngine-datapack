@@ -12,4 +12,4 @@
 # function macro:inv/offhand_item {item:"minecraft:shield",customData:"{my_tag:1b}",invoke:"function mypack:on_shield"}
 # ─────────────────────────────────────────────────────────────────
 
-$execute as @a at @s if items entity @s weapon.offhand $(item)[minecraft:custom_data=$(customData)] run $(invoke)
+return run tellraw @s {"text":"This feature requires 1.21.x or higher!","color":"red","italic":false}
