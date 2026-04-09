@@ -3,6 +3,12 @@
 
 ---
 
+> [!CAUTION]
+> **ARCHIVED REPOSITORY**
+> This project is no longer maintained. Feel free to browse the code or fork it for your own implementation.
+
+-
+
 ## ✅ Verification
 
 > ⚠️ **This is the ONLY official source.**
