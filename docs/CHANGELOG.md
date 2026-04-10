@@ -2,6 +2,112 @@
 
 ---
 
+## v3.0.2 — 2026-04-10
+
+### ✨ Yeni
+
+#### Yeni Overlay: `1_20_3`
+
+1.20.3 / 1.20.4 (pack_format 26) için tam overlay. Load sistemi, scoreboardlar, storage'lar, damage type'lar, tüm modül dosyaları dahil.
+
+#### Yeni Overlay: `1_20_5`
+
+1.20.5–1.20.6 (pack_format 48) için tam overlay.
+
+#### `queue/` — Multi-Cmd Kuyruk Yönetimi
+
+| Fonksiyon | Açıklama |
+|---|---|
+| `queue/clear` | Tüm kuyruğu temizler |
+| `queue/flush` | Kuyruktaki tüm komutları hemen çalıştırır |
+| `queue/internal/exec_next` | Sıradaki komutu işler |
+| `queue/internal/exec_as` | `execute as` context'iyle komut çalıştırır |
+| `queue/internal/exec_fn` | Fonksiyon olarak kaydedilmiş komutu çalıştırır |
+
+#### Trigger Yeniden Yazımı (Fix [#8])
+
+`trigger/bind`, `trigger/bind_cmd`, `trigger/disable`, `trigger/enable`, `trigger/list`, `trigger/unbind`, `trigger/unbind_all` alt dosyaları kaldırıldı. Yerini unified `trigger.mcfunction` (dispatch hub) ve yeni `trigger/execute.mcfunction` + `trigger/internal/dispatch.mcfunction` aldı.
+
+#### `multi_cmd_adv.mcfunction`
+
+Base ve `1_20_3` overlay'ine `cmd/other/multi_cmd_adv` eklendi.
+
+#### `1_20_3` Hook Advancement'ları (Fix [#6])
+
+`break_block`, `dimension_change`, `entity_kill`, `hero_of_the_village`, `item_use`, `killed_by_arrow`, `placed_block`, `trade` + `hidden/root` + `template/task|goal|challenge`
+
+#### `1_20_3` Hook Olayları (Fix [#7])
+
+`eat_food`, `fish_caught`, `interact_anvil`, `interact_shulker_box`, `player_death` advancement'ları + internal handler'lar: `on_eat`, `on_eat_fire`, `on_fish_caught`, `on_fish_fire`, `tick_scan` güncellemesi
+
+#### `1_20_5` Hook Advancement'ları ve Olayları (Fix [#5])
+
+Tüm hook advancement'ları + `player_death`. `on_open_chest`, `tick_scan`, `on_interact_anvil`, `on_interact_shulker_box`, `raycast/loop`, `raycast/start`, `bind_exec`, `unbind_exec`, `on_advancement_fire`, `on_eat`, `on_fish_caught`, `on_fish_fire` düzeltmeleri.
+
+#### `spyglass.json`
+
+Statik analiz yapılandırma dosyası eklendi.
+
+### 🐛 Düzeltilen Hatalar
+
+| Dosya | Düzeltme |
+|---|---|
+| `string/score_display` (base) | Yanlış çıktı düzeltildi |
+| `tools/utils/input_check` (base, `1_20_3`) | Doğrulama mantığı düzeltildi |
+
+### ⚙️ Değişiklikler
+
+- `pack.mcmeta`: `1_20_3` overlay girişi eklendi; `supported_formats` aralığı güncellendi
+- Tüm overlay'lerde versiyon stringleri `v3.0.2` olarak güncellendi
+
+---
+
+## v3.0.1 — 2026-04-09
+
+### ✨ Yeni Fonksiyonlar
+
+| Fonksiyon | Açıklama |
+|---|---|
+| `time/get_time` | Mevcut dünya zamanını (`daytime`, `total`, `day`) `macro:output`'a yazar |
+| `time/time_phase` | Gün fazını döndürür (`day` / `night` / `sunrise` / `sunset`) |
+| `hook/reset_all` | Tüm kayıtlı hook bind'larını temizler |
+
+### 🐛 Düzeltilen Hatalar
+
+| Hata | Düzeltme |
+|---|---|
+| Fix [#4]: `validate.mcfunction` ve `version_warn.mcfunction` load sırasında yanlış versiyon string'i gösteriyordu | Tüm overlay'lerde (`1_20_3`, `1_21_5`, `1_21_6`, `compat_1_21_4`, base) düzeltildi |
+| Fix [#3]: `version.mcfunction` overlay'lerde versiyon uyuşmazlığı | Tüm overlay'lerde düzeltildi |
+| Fix [#2]: `.gitignore` yanlış dosyayı track ediyordu | Düzeltildi |
+| Fix [#1]: `.gitignore` dosyası sorunu | Düzeltildi |
+| `docs/lib-player-cmd-string.md`: Yanlış parametre anahtarı belgelenmiş | Düzeltildi |
+
+### ⚙️ Değişiklikler
+
+- `cursor_item.mcfunction` → `cursor_item_exec.mcfunction`'dan yeniden adlandırıldı; mantık sadeleştirildi
+- `inv/selected_item`, `inv/offhand_item`, `inv/chest_minecart_if_item`, `inv/chest_minecart_unless_item` — macro parametre işleme güncellendi
+- Tüm overlay'lerde versiyon stringleri `v3.0.1` olarak güncellendi
+
+---
+
+## v3.0.0 — 2026-04-04
+
+### 💥 Breaking Changes
+
+- `rate_limit` modülü tamamen yeniden yazıldı. Eski alt fonksiyon tabanlı yapı kaldırıldı; artık saf scoreboard implementasyonu kullanılıyor (`check` / `tick` / `config` API). `1_20_3`, `1_21_5`, `1_21_6` overlay'lerinden `rate_limit` kaldırıldı — yalnızca base overlay üzerinden çalışıyor.
+
+### ✨ Yeni
+
+- `rate_limit` modülü: `check`, `tick`, `config` — sıfır alt fonksiyon, pure scoreboard
+- `admin_systems.mcfunction` güncellendi
+
+### ⚙️ Değişiklikler
+
+- Load sistemi tüm overlay'lerde yeniden yapılandırıldı
+- Versiyon stringleri `v3.0.0` olarak güncellendi
+
+---
+
 ## v2.2.9 — 2026-04-04
 
 ### ✨ New Features
