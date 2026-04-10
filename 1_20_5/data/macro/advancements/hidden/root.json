@@ -12,7 +12,7 @@
       "text": ""
     },
     "icon": {
-      "id": "minecraft:barrier"
+      "item": "minecraft:barrier"
     },
     "frame": "task",
     "show_toast": false,

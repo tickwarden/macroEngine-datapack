@@ -1,6 +1,6 @@
 {
   "_comment": "macro:advancement/template/task — Task-frame, hidden advancement template.",
-  "_usage": "Copy this file into your own namespace. Customise parent, icon, title and description.",
+  "_usage": "Copy this fvia into your own namespace. Customise parent, icon, title and description.",
   "_trigger": "Not triggered automatically with minecraft:impossible — grant manually via scoreboard: advancement grant <player> only macro:advancement/template/task",
   "parent": "macro:hidden/root",
   "criteria": {
@@ -10,7 +10,7 @@
   },
   "display": {
     "icon": {
-      "id": "minecraft:paper"
+      "item": "minecraft:paper"
     },
     "title": {
       "text": "Template: Task",

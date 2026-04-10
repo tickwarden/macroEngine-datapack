@@ -123,6 +123,12 @@
         },
         "min_format": 26,
         "max_format": 26
+      },
+      {
+        "directory": "1_20_5",
+        "formats": 41,
+        "min_format": 41,
+        "max_format": 41
       }
     ]
   }
