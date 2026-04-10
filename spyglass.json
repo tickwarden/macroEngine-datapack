@@ -1,0 +1,8 @@
+{
+  "env": {
+    "gameVersion": "Auto"
+  },
+  "lint": {
+    "idOmitDefaultNamespace": false
+  }
+}
