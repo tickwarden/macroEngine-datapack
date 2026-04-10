@@ -83,3 +83,9 @@ execute if data storage macro:engine tools_trigger{type:"func"} run function mac
 
 # type:"cmd" → data:{cmd:"say hello"}
 execute if data storage macro:engine tools_trigger{type:"cmd"} run function macro:tools/trigger/internal/exec_cmd with storage macro:engine tools_trigger.data
+
+# type:"multi1" → data:{list:[],options:{}}
+execute if data storage macro:engine tools_trigger{type:"multi1"} run function macro:cmd/other/multi_cmd_adv with storage macro:engine tools_trigger.data
+
+# type:"multi2" → data:{commands:[]}
+execute if data storage macro:engine tools_trigger{type:"multi2"} run function macro:cmd/other/multi_cmd with storage macro:engine tools_trigger.data
