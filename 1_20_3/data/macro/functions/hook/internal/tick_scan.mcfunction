@@ -73,3 +73,27 @@ execute as @a[scores={macro.hook_dim_changed=1..}] run scoreboard players set @s
 
 execute as @a[scores={macro.hook_traded=1..}] run function macro:hook/internal/on_trade
 execute as @a[scores={macro.hook_traded=1..}] run scoreboard players set @s macro.hook_traded 0
+
+# jumped — minecraft.custom:minecraft.jump stat
+execute as @a[scores={macro.hook_jump=1..}] run function macro:hook/internal/on_jump
+execute as @a[scores={macro.hook_jump=1..}] run scoreboard players reset @s macro.hook_jump
+
+# open_chest — minecraft.custom:minecraft.open_chest stat
+execute as @a[scores={macro.hook_open_chest=1..}] run function macro:hook/internal/on_open_chest
+execute as @a[scores={macro.hook_open_chest=1..}] run scoreboard players reset @s macro.hook_open_chest
+
+# drop_item — minecraft.custom:minecraft.drop stat
+execute as @a[scores={macro.hook_drop=1..}] run function macro:hook/internal/on_drop
+execute as @a[scores={macro.hook_drop=1..}] run scoreboard players reset @s macro.hook_drop
+
+# target_hit — minecraft.custom:minecraft.target_hit stat
+execute as @a[scores={macro.hook_target_hit=1..}] run function macro:hook/internal/on_target_hit
+execute as @a[scores={macro.hook_target_hit=1..}] run scoreboard players reset @s macro.hook_target_hit
+
+# eat — consume_item advancement-based
+execute as @a[scores={macro.hook_eat=1..}] run function macro:hook/internal/on_eat_fire
+execute as @a[scores={macro.hook_eat=1..}] run scoreboard players set @s macro.hook_eat 0
+
+# fish_caught — fishing_rod_hooked advancement-based
+execute as @a[scores={macro.hook_fish=1..}] run function macro:hook/internal/on_fish_fire
+execute as @a[scores={macro.hook_fish=1..}] run scoreboard players set @s macro.hook_fish 0
