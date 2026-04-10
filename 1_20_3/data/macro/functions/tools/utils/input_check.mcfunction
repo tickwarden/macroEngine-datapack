@@ -4,7 +4,7 @@ data modify storage macro:output data set from storage macro:engine
 execute unless data storage macro:output data.global{loaded:1b} run return 0
 
 # engine stores v2.2.2-pre1 (lowercase v)
-execute unless data storage macro:output data.global{version:"v3.0.0"} run return 0
+execute unless data storage macro:output data.global{version:"v3.0.2"} run return 0
 
 # --- Tehlikeli komutlar: injection engeli (permission-level 3 / singleplayer uyumsuz) ---
 execute if data storage macro:output inputs{func:"macro:cmd/op"} run return 0

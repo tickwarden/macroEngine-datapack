@@ -3,7 +3,7 @@
 # Sends a formatted label: value line from a scoreboard objective.
 #  Input : $(target)    → selector to receive the message
 #          $(label)     → display label (e.g. "Points")
-#          $(player)    → scoreboard player name (e.g. "@s", "IronCrest")
+#          $(player)    → scoreboard player name (e.g. "@s", "<player name>")
 #          $(objective) → scoreboard objective name
 #          $(color)     → value color (e.g. "green", "gold")
 #
