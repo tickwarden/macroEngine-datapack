@@ -6,14 +6,6 @@
 
 ### ✨ Yeni
 
-#### Yeni Overlay: `1_20_3`
-
-1.20.3 / 1.20.4 (pack_format 26) için tam overlay. Load sistemi, scoreboardlar, storage'lar, damage type'lar, tüm modül dosyaları dahil.
-
-#### Yeni Overlay: `1_20_5`
-
-1.20.5–1.20.6 (pack_format 48) için tam overlay.
-
 #### `queue/` — Multi-Cmd Kuyruk Yönetimi
 
 | Fonksiyon | Açıklama |
