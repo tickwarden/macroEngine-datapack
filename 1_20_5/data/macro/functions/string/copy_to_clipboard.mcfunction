@@ -1,1 +1,0 @@
-$tellraw $(target) {"text":"$(text)","color":"$(color)","clickEvent":{"action":"copy_to_clipboard","value":"$(copy_value)"},"hoverEvent":{"action":"show_text","contents":{"text":"Copy to clipboard","color":"gray","italic":true}}}

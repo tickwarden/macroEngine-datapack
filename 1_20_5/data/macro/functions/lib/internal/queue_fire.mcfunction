@@ -1,5 +1,0 @@
-execute if data storage macro:engine queue[0].func if data storage macro:engine queue[0].player run function macro:lib/internal/queue_run_func_as with storage macro:engine queue[0]
-execute if data storage macro:engine queue[0].func unless data storage macro:engine queue[0].player run function macro:lib/internal/queue_run_func with storage macro:engine queue[0]
-execute if data storage macro:engine queue[0].cmd if data storage macro:engine queue[0].player run function macro:lib/internal/queue_run_cmd_as with storage macro:engine queue[0]
-execute if data storage macro:engine queue[0].cmd unless data storage macro:engine queue[0].player run function macro:lib/internal/queue_run_cmd with storage macro:engine queue[0]
-data remove storage macro:engine queue[0]

@@ -1,2 +1,0 @@
-# macro:hook/on_interact_shulker_box
-function macro:hook/internal/on_interact_shulker_box

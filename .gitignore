@@ -39,6 +39,7 @@ tlauncher_profile.json
 *.mcaddon
 *.mcworld
 stats/
+advancements/
 .minecraft/saves/**/data/*.dat
 crash-reports/
 server.jar
