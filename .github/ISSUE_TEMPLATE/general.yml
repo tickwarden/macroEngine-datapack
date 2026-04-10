@@ -1,16 +1,18 @@
-name: Genel
-description: Yukarıdaki kategorilere uymayan her şey için
-title: "[Genel] "
+name: General
+description: For anything that doesn't fit into the other categories
+title: "[General] "
 labels:
   - general
 body:
   - type: textarea
     id: description
     attributes:
-      label: Açıklama
+      label: Description
     validations:
       required: true
   - type: textarea
     id: extra
     attributes:
-      label: Ek Bilgi
+      label: Additional Context / Information
+    validations:
+      required: false
