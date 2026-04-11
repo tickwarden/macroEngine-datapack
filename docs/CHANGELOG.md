@@ -10,6 +10,9 @@
 
 1.20.5–1.20.6 (pack_format 48) için tam overlay.
 
+#### `math/mul_div` — Overflow-safe a*b/c
+
+
 ---
 
 ## v3.0.2 — 2026-04-10
