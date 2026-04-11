@@ -52,3 +52,10 @@ scoreboard objectives add macro.hook_target_hit minecraft.custom:minecraft.targe
 # eat / fish_caught — advancement-based (1.20.5+)
 scoreboard objectives add macro.hook_eat dummy
 scoreboard objectives add macro.hook_fish dummy
+
+# Lantern Load integration — pack version tracking
+scoreboard objectives add load.status dummy
+
+# Version calculation constants (for Lantern Load integration)
+scoreboard players set #10000 macro.tmp 10000
+scoreboard players set #100 macro.tmp 100

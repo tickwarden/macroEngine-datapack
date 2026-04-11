@@ -48,3 +48,10 @@ scoreboard objectives add macro.hook_jump minecraft.custom:minecraft.jump
 scoreboard objectives add macro.hook_open_chest minecraft.custom:minecraft.open_chest
 scoreboard objectives add macro.hook_drop minecraft.custom:minecraft.drop
 scoreboard objectives add macro.hook_target_hit minecraft.custom:minecraft.target_hit
+
+# Lantern Load integration — pack version tracking
+scoreboard objectives add load.status dummy
+
+# Version calculation constants (for Lantern Load integration)
+scoreboard players set #10000 macro.tmp 10000
+scoreboard players set #100 macro.tmp 100
