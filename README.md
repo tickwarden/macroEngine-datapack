@@ -32,6 +32,32 @@ sha256sum datapack.zip
 
 ---
 
+## 📚 Dependencies & Libraries
+
+macroEngine uses the following libraries:
+
+### Lantern Load
+**Repository:** https://github.com/LanternMC/load  
+**Purpose:** Datapack load order management and version resolution  
+**License:** BSD 0-Clause (public domain)
+
+Lantern Load provides:
+- Deterministic load order across datapacks
+- Version tracking via `load.status` scoreboard
+- Pre-load, load, and post-load hooks
+
+**macroEngine version detection:**
+```mcfunction
+# Check if macroEngine is loaded
+execute if score macroEngine load.status matches 1.. run say macroEngine is loaded
+
+# Get version (format: major*10000 + minor*100 + patch)
+# Example: v2.2.6 = 20206
+scoreboard players get macroEngine load.status
+```
+
+---
+
 ## 🏗️ Storage Architecture
 
 ```

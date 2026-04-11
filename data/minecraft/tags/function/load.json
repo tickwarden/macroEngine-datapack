@@ -1,6 +1,5 @@
 {
-  "values": [
-    "#macro:init",
-    "macro:load"
-  ]
+    "values": [
+        "#load:_private/load"
+    ]
 }

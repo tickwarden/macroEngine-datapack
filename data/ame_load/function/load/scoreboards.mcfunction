@@ -9,6 +9,9 @@ scoreboard objectives add health health {"text":"❤","color":"red"}
 scoreboard objectives add ame.pre_version dummy
 scoreboard objectives add macro.pid dummy
 
+# Lantern Load integration — pack version tracking
+scoreboard objectives add load.status dummy
+
 
 
 # Wand module — carrot_on_a_stick right-click tracker
@@ -59,3 +62,7 @@ scoreboard objectives add macro.hook_target_hit minecraft.custom:minecraft.targe
 scoreboard objectives add macro.hook_eat dummy
 # hook/fish_caught — fishing_rod_hooked advancement-based
 scoreboard objectives add macro.hook_fish dummy
+
+# Version calculation constants (for Lantern Load integration)
+scoreboard players set #10000 macro.tmp 10000
+scoreboard players set #100 macro.tmp 100
