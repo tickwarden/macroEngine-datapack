@@ -1,5 +1,8 @@
 name: Repository Backup
 
+env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 on:
   schedule:
     # Weekly backup (every Sunday at 03:00 UTC)
@@ -22,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout repository (full history)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -37,7 +40,7 @@ jobs:
           Backup Information
           ==================
           Date: $(date -u)
-          Repository: macroEngine-dp
+          Repository: macroEngine-datapack
           Commit: $(git rev-parse HEAD)
           Branch: $(git rev-parse --abbrev-ref HEAD)
           EOF
@@ -54,7 +57,7 @@ jobs:
           ls -lh ${BACKUP_NAME}*
 
       - name: Upload backup artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: repository-backup-${{ github.run_number }}
           path: |
