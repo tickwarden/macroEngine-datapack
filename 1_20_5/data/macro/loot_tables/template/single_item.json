@@ -1,0 +1,24 @@
+{
+  "_comment": "macro:loot_table/template/single_item — Single item drop template.",
+  "_usage": "loot giand @s loot macro:loot_table/template/single_item  VEYA  loot drop ~ ~ ~ loot macro:loot_table/template/single_item",
+  "_customize": "entries[0].name alanini istediginiz item via degistirin.",
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

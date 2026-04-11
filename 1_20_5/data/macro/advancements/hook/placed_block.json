@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "placed_any_block": {
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "rewards": {
+    "function": "macro:hook/on_placed_block"
+  },
+  "parent": "macro:hidden/root"
+}

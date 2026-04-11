@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "killed_by_arrow": {
+      "trigger": "minecraft:entity_killed_player",
+      "conditions": {
+        "killing_blow": {
+          "direct_entity": {
+            "type": "minecraft:arrow"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "macro:hook/on_killed_by_arrow"
+  },
+  "parent": "macro:hidden/root"
+}

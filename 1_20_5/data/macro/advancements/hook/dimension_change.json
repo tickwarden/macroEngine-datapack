@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "changed_dimension": {
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "rewards": {
+    "function": "macro:hook/on_dimension_change"
+  },
+  "parent": "macro:hidden/root"
+}

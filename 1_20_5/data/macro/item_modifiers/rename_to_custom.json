@@ -1,0 +1,8 @@
+{
+  "function": "minecraft:set_name",
+  "name": {
+    "text": "Custom Item",
+    "italic": false,
+    "color": "gold"
+  }
+}

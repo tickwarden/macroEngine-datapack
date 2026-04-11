@@ -1,0 +1,28 @@
+{
+  "_comment": "macro:advancement/template/task — Task-frame, hidden advancement template.",
+  "_usage": "Copy this file into your own namespace. Customise parent, icon, title and description.",
+  "_trigger": "Not triggered automatically with minecraft:impossible — grant manually via scoreboard: advancement grant <player> only macro:advancement/template/task",
+  "parent": "macro:hidden/root",
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:paper"
+    },
+    "title": {
+      "text": "Template: Task",
+      "color": "white"
+    },
+    "description": {
+      "text": "",
+      "color": "gray"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}
