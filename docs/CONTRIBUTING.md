@@ -135,6 +135,50 @@ Version numbers must reflect actual changes:
 Incrementing a version number without a corresponding changelog entry will be rejected.
 
 ---
+## AI-Assisted Contributions
+
+Using AI tools (ChatGPT, Claude, etc.) to help write code or documentation is allowed,
+but contributions must meet the same standards as hand-written code.
+AI output is not a substitute for understanding — **you are responsible for everything you submit.**
+
+### Common AI Mistakes to Verify Before Submitting
+
+**pack_format / version numbers**
+AI models frequently output incorrect or inconsistent `pack_format` values.
+Always verify against the [official wiki](https://minecraft.wiki/w/Pack_format) before submitting.
+
+**Hallucinated links and file references**
+AI tools may produce plausible-looking but entirely fake URLs, CDN paths, or file names.
+Never include a link or file reference you have not personally verified exists.
+
+**Syntax versioning (`clickEvent` vs `click_event`, camelCase vs snake_case)**
+AI models often mix old and new key formats within the same output.
+Cross-check all JSON text component keys, NBT keys, and advancement event names
+against the target version. See [Known Pitfalls & Decisions](#known-pitfalls--decisions).
+
+**Macro usage**
+AI-generated macro functions frequently apply the `$` prefix to non-substitution lines,
+or attempt to pass full JSON text components as `$(var)` arguments (not supported).
+Review every macro file manually.
+
+**Fabricated wait times and progress claims**
+Disregard any AI output that claims a file "is being prepared" or will be ready after a delay.
+If the content is not in the response, it does not exist.
+
+**Version inflation**
+AI tools tend to increment version numbers across iterations without actual changes.
+Use your own judgment for versioning — do not copy version strings from AI output blindly.
+
+### Checklist for AI-Assisted PRs
+Before opening a pull request that involved AI assistance:
+- [ ] All `pack_format` values manually verified
+- [ ] No unverified external links or file paths
+- [ ] All text component keys match target version syntax
+- [ ] Macro `$` prefix applied only to substitution lines
+- [ ] Version number reflects actual change scope
+- [ ] Logic understood and tested — not submitted as-is from AI output
+
+---
 ## What Will Be Rejected
 * Snapshot-only features
 * Performance-heavy mechanics without justification
