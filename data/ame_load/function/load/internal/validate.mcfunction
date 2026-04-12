@@ -18,3 +18,5 @@ execute if score #ame.mismatch ame.pre_version matches 1 run function ame_load:l
 execute if score #ame.mismatch ame.pre_version matches 1 run return 0
 
 return 1
+# StringLib dependency check
+execute unless score #StringLib.Init StringLib matches 1 run tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"WARN","color":"gold","bold":true},{"text":" StringLib not initialized — macro:lib/string/* unavailable","color":"yellow"}]
