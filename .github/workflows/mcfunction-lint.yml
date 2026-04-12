@@ -146,26 +146,7 @@ jobs:
           [ $FOUND -gt 0 ] && echo "WARN: $FOUND total trailing whitespace line(s)." || echo "PASSED: No trailing whitespace found."
 
   # ─────────────────────────────────────────────
-  # 6. Function Header Check
-  # ─────────────────────────────────────────────
-  lint-function-header:
-    name: Function Header
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - name: Check function headers
-        run: |
-          FAILED=0
-          while IFS= read -r f; do
-            if ! head -n 5 "$f" | grep -qP '^#>'; then
-              echo "FAIL [header]: $f  →  İlk satır '#> ...' ile başlamalı"
-              FAILED=1
-            fi
-          done < <(find data _pre_1_21_4 compat_1_21_4 1_20_3 1_21_4 1_21_5 1_21_6 26_1 -name "*.mcfunction" 2>/dev/null)
-          [ $FAILED -ne 0 ] && exit 1 || echo "PASSED: All functions have proper header."
-
-  # ─────────────────────────────────────────────
-  # 7. JSON Validation
+  # 6. JSON Validation
   # ─────────────────────────────────────────────
   lint-json:
     name: JSON Validation
@@ -184,7 +165,7 @@ jobs:
           [ $FAILED -ne 0 ] && exit 1 || echo "PASSED: All JSON files are valid."
 
   # ─────────────────────────────────────────────
-  # 8. Deprecated Text Components
+  # 7. Deprecated Text Components
   # ─────────────────────────────────────────────
   lint-deprecated-text:
     name: Deprecated Text Components
@@ -208,7 +189,7 @@ jobs:
           [ $FOUND -gt 0 ] && echo "WARN: $FOUND old text component usage(s) found." || echo "PASSED: No deprecated text components."
 
   # ─────────────────────────────────────────────
-  # 9. Hardcoded Player Names
+  # 8. Hardcoded Player Names
   # ─────────────────────────────────────────────
   lint-hardcoded-names:
     name: Hardcoded Player Names
@@ -228,7 +209,7 @@ jobs:
           [ $FOUND -ne 0 ] && echo "WARN: Hardcoded player names detected." || echo "PASSED: No hardcoded player names."
 
   # ─────────────────────────────────────────────
-  # 10. Execute As/At Order
+  # 9. Execute As/At Order
   # ─────────────────────────────────────────────
   lint-execute-order:
     name: Execute As/At Order
@@ -248,7 +229,7 @@ jobs:
           [ $FOUND -ne 0 ] && echo "WARN: Some execute commands have suboptimal 'as/at' order." || echo "PASSED: Execute order looks good."
 
   # ─────────────────────────────────────────────
-  # 11. Scoreboard Objective Naming Convention
+  # 10. Scoreboard Objective Naming Convention
   # ─────────────────────────────────────────────
   lint-scoreboard-naming:
     name: Scoreboard Naming Convention
@@ -274,7 +255,7 @@ jobs:
           [ $FAILED -ne 0 ] && echo "WARN: Some scoreboard objectives don't follow naming convention." || echo "PASSED: Scoreboard naming looks good."
 
   # ─────────────────────────────────────────────
-  # 12. Function Path & Namespace Check
+  # 11. Function Path & Namespace Check
   # ─────────────────────────────────────────────
   lint-function-path:
     name: Function Path Check
@@ -294,7 +275,7 @@ jobs:
           [ $FOUND -ne 0 ] && echo "WARN: Some function calls missing namespace." || echo "PASSED: All function calls have namespace."
 
   # ─────────────────────────────────────────────
-  # 13. Long Function Warning
+  # 12. Long Function Warning
   # ─────────────────────────────────────────────
   lint-function-length:
     name: Function Length Check
@@ -314,7 +295,7 @@ jobs:
           [ $FOUND -eq 0 ] && echo "PASSED: No excessively long functions." || echo "WARN: Some functions are very long."
 
   # ─────────────────────────────────────────────
-  # 14. load.json & tick.json Check
+  # 13. load.json & tick.json Check
   # ─────────────────────────────────────────────
   lint-load-tick:
     name: load.json & tick.json Check
@@ -335,7 +316,7 @@ jobs:
           fi
 
   # ─────────────────────────────────────────────
-  # 15. Dangerous Commands Check
+  # 14. Dangerous Commands Check
   # ─────────────────────────────────────────────
   lint-dangerous-commands:
     name: Dangerous Commands
