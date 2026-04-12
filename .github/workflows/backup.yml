@@ -1,16 +1,14 @@
 name: Repository Backup
 
 env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 on:
   schedule:
     # Weekly backup (every Sunday at 03:00 UTC)
     - cron: '0 3 * * 0'
-
     # Monthly backup release (1st day of every month at 03:00 UTC)
     - cron: '0 3 1 * *'
-
   workflow_dispatch:
     inputs:
       reason:
@@ -22,7 +20,6 @@ jobs:
   backup:
     name: Create Repository Backup
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository (full history)
         uses: actions/checkout@v6
@@ -33,9 +30,7 @@ jobs:
         run: |
           BACKUP_DATE=$(date +'%Y-%m-%d_%H-%M-%S')
           BACKUP_NAME="macroEngine-dp-backup-${BACKUP_DATE}"
-
           echo "Creating backup: ${BACKUP_NAME}"
-
           cat > backup-manifest.txt << EOF
           Backup Information
           ==================
@@ -44,24 +39,19 @@ jobs:
           Commit: $(git rev-parse HEAD)
           Branch: $(git rev-parse --abbrev-ref HEAD)
           EOF
-
+          
           tar --warning=no-file-changed -czf "${BACKUP_NAME}.tar.gz" \
             --exclude='.git' \
             --exclude='node_modules' \
             --exclude='*.log' \
             --exclude="${BACKUP_NAME}.tar.gz" \
             . || [[ $? -eq 1 ]]
-
+          
           git bundle create "${BACKUP_NAME}.bundle" --all
-
           ls -lh ${BACKUP_NAME}*
 
       - name: Upload backup artifacts
-<<<<<<< HEAD
-        uses: actions/upload-artifact@v6
-=======
-        uses: actions/upload-artifact@v7
->>>>>>> f338ce69d83af7e75b8b333f0a76f0daa17d393c
+        uses: actions/upload-artifact@v4   # ← En stabil ve önerilen versiyon
         with:
           name: repository-backup-${{ github.run_number }}
           path: |
@@ -72,7 +62,7 @@ jobs:
 
       - name: Create backup release (monthly)
         if: github.event_name == 'schedule' && github.event.schedule == '0 3 1 * *'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: backup-${{ github.run_number }}
           name: Monthly Backup - ${{ github.run_number }}
