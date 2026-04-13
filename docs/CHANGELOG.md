@@ -2,6 +2,59 @@
 
 ---
 
+## v3.0.4-pre1 — 2026-04-13
+
+### ✨ Yeni
+
+#### Load Confirmation Gate (`ame_load:load/confirm`, `yes`, `no`, `timeout`)
+
+`ame_load:_` (Stage 0) artık `ame_load:load/all`'u direkt çağırmıyor.
+
+Bunun yerine bir **onay kapısı** açıyor:
+
+- `ame_load:load/confirm` — `#pending ame.load` flag'ini ayarlar, marker entity aracılığıyla talimatları yayınlar, 5 dakikalık timeout'u schedule'lar
+- `ame_load:load/yes` — admin onayı, tam init pipeline'ını çalıştırır
+- `ame_load:load/no` — iptal, `macro:engine` storage'a dokunulmaz
+- `ame_load:timeout` — 5 dakika yanıt gelmezse otomatik iptal (`load/no`'ya delegate)
+
+**Problem çözülüyor:**
+`minecraft:load` tag'i hem `/reload`'da hem de dünya açılışında tetiklenir. Önceki davranış: mevcut session verisini (permissions, flags, wand binds, vb.) koşulsuz `data modify ... set value` ile üzerine yazıyordu → nondeterministic state + sessiz veri kaybı.
+
+**Yeni davranış:** Onay gelmeden `macro:engine` storage'a hiçbir şey yazılmaz.
+
+#### Marker Entity Pattern (`say` yerine `tellraw`)
+
+Tüm gate mesajları `summon marker → say → kill @s` pattern'ini kullanıyor.
+
+**Neden:** `tellraw @a` + `clickEvent`, server başlangıcında güvenilmez:
+- `minecraft:load` tetiklendiğinde client connection pipeline henüz tamamlanmamış olabilir
+- Sıfır oyuncu online olabilir (unattended/headless server)
+- Marker `say`, server loguna doğrudan yazar — her koşulda çalışır
+
+#### Dangerous Command Gate (`ame_load:gate/`)
+
+Üç yıkıcı komut artık anında çalışmıyor — onay gerektiriyor:
+
+| Komut | Değişiklik |
+|---|---|
+| `macro:cmd/ban` | `pending_gate`'e yazar → `gate/request` açar |
+| `macro:cmd/ban_ip` | `pending_gate`'e yazar → `gate/request` açar |
+| `macro:disable` | `pending_gate`'e yazar → `gate/request` açar |
+
+**Onaylama:** `/function ame_load:gate/yes`
+**İptal:** `/function ame_load:gate/no`
+**Auto-cancel:** 30 saniye yanıt gelmezse otomatik
+
+Gate executor'ları: `ame_load:gate/exec/ban`, `gate/exec/ban_ip`, `gate/exec/disable`
+
+Yeni komutlar için `ame_load:gate/exec/` altına executor yazılır, `gate/yes.mcfunction`'a dispatch satırı eklenir.
+
+#### Storage Safety — `storages.mcfunction`
+
+`ame_load:load/storages`'daki her alan artık `execute unless data storage macro:engine X run ...` guard'ı kullanıyor. Kasıtlı olarak sıfırlanan alanlar (fibers._pending, region_watches, batches) inline açıklama ile belgelenmiş.
+
+---
+
 ## v3.0.4-pre1 — 2026-04-12
 
 ### ✨ Yeni

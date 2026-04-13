@@ -1,7 +1,39 @@
+# macro:cmd/ban_ip — Dangerous command (confirmation gate required)
+#
+# SECURITY CHECKS (unchanged from original)
+#   - Requires macro.admin tag (via check_all → perm_check)
+#   - Requires caller to be a player entity
+#   - Requires overworld dimension
+#   - Requires creative game mode
+#
+# CHANGE FROM PREVIOUS BEHAVIOUR
+# --------------------------------
+# This function NO LONGER bans immediately.
+# It stores the ban-ip parameters in macro:engine pending_gate and opens the
+# dangerous-command gate. The ban executes only after admin runs:
+#   /function ame_load:gate/yes
+#
+# To cancel:
+#   /function ame_load:gate/no
+#
+# Auto-cancel fires after 30 seconds if no response.
+#
+# USAGE (unchanged):
+#   data modify storage macro:input player set value "PlayerName"
+#   data modify storage macro:input reason set value "Reason string"
+#   function macro:cmd/ban_ip with storage macro:input {}
+#
+# MACRO FIELDS:
+#   $(player) — target player name (resolves to IP for ban-ip)
+#   $(reason) — ban reason
+
 execute unless function macro:tools/utils/check_all run return 0
 execute unless entity @s[type=minecraft:player] run return 0
 execute unless dimension minecraft:overworld run return 0
 execute unless entity @s[gamemode=creative] run return 0
 
-$ban-ip $(player) $(reason)
-$tellraw @a[tag=macro.debug] {"text":"","extra":[{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"cmd/ban_ip ","color":"aqua"},{"text":"$(player)","color":"white"}]}
+# Store ban-ip context for gate confirmation
+$data modify storage macro:engine pending_gate set value {type:"ban_ip",player:"$(player)",reason:"$(reason)"}
+
+# Open the dangerous-command gate
+function ame_load:gate/request
