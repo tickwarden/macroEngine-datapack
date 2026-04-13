@@ -2,34 +2,6 @@
 **Minecraft Java Edition 1.20.3–1.21.6+ | Multiplayer-Safe | Pure Datapack**
 
 
-
-
----
-
-> [!CAUTION]
-> **This repository has been permanently archived.**
-> Development on this project has been discontinued. No future versions,
-> updates, or successors are planned. The codebase is preserved as-is
-> for reference purposes only.
-
----
-
-## 🗄️ Archive Notice
-
-This repository was permanently archived on **April 12, 2026**.
-
-**This project is no longer maintained and will not receive any future updates.**
-No new issues, pull requests, forks intended for continuation, or contributions
-will be reviewed or accepted.
-
-The repository remains public solely as a historical reference.
-Use at your own risk — compatibility with current or future Minecraft versions
-is not guaranteed.
-
----
-
-
-
 > Current version: **v3.0.4-pre1**
 
 ---
