@@ -188,6 +188,8 @@ New modules: `math/abs`, `math/clamp`, `team/*`, `config/*`, `lib/input_push`, `
 
 [GitHub Discussions](https://github.com/tickwarden/macroEngine-datapack/discussions) — For questions, suggestions, and bug reports.
 
+
+[![Issues](https://img.shields.io/github/issues/tickwarden/macroEngine-datapack?style=for-the-badge)](https://github.com/tickwarden/macroEngine-datapack/issues) - GitHub Issues — Your hub for questions, suggestions, and bug reports.
 ---
 
 *Advanced Macro Engine v4.0.0 | MC Java 1.20.3–1.21.6+ | Language: mcfunction*
