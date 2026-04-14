@@ -1,51 +1,47 @@
-# ame_load:gate/yes
-# Execute the pending dangerous command after admin confirmation.
+# ame_load:load/yes
+# Admin confirmed AME load. Triggers the full initialization pipeline.
 #
-# Reads the pending_gate compound from macro:engine storage and dispatches
-# to the correct executor based on the 'type' field.
+# GUARDS
+# ------
+#   - Gate must be open (#pending ame.load == 1)
+#   - Already-confirmed calls are no-ops (idempotent)
+#   - If called with no gate pending, silently returns 0
 #
-# SUPPORTED TYPES
-# ---------------
-#   "ban"     → ame_load:gate/exec/ban       (macro: player, reason)
-#   "ban_ip"  → ame_load:gate/exec/ban_ip    (macro: player, reason)
-#   "disable" → ame_load:gate/exec/disable   (no macro params)
+# WHAT HAPPENS
+# ------------
+#   1. Mark confirmed, close the pending window
+#   2. Cancel the 5-minute timeout schedule
+#   3. Tear down the ame.load objective (not needed after this point)
+#   4. Schedule ame_load:load/all at t+1 (clean tick boundary)
 #
-# Adding new types: write an executor in ame_load:gate/exec/, then add
-# an 'execute if data' dispatch line here.
+# The 1-tick delay lets the scoreboard objective removal settle before
+# ame_load:load/scoreboards runs and recreates its own objectives.
 
 # Guard: no gate open
-execute unless score #pending ame.gate matches 1 run return 0
+execute unless score #pending ame.load matches 1 run return 0
 
 # Guard: already confirmed (double-call protection)
-execute if score #confirmed ame.gate matches 1 run return 0
+execute if score #confirmed ame.load matches 1 run return 0
 
-# Mark confirmed, close window
-scoreboard players set #confirmed ame.gate 1
-scoreboard players set #pending ame.gate 0
+# Mark confirmed — close window
+scoreboard players set #confirmed ame.load 1
+scoreboard players set #pending ame.load 0
 
-# Cancel the 30-second timeout
-schedule clear ame_load:gate/timeout
+# Cancel auto-cancel timeout
+schedule clear ame_load:timeout
 
-# Announce execution via marker
-summon minecraft:marker ~ ~ ~ {Tags:["macro.gate_exec"],CustomName:{"text":"AME"}}
-execute as @e[type=minecraft:marker,tag=macro.gate_exec,limit=1] run say [AME GATE] Dangerous command CONFIRMED. Executing...
-execute as @e[type=minecraft:marker,tag=macro.gate_exec,limit=1] run kill @s
+# Announce via marker (safe on all MC versions, no player context needed)
+summon minecraft:marker ~ ~ ~ {Tags:["macro.gate_yes"],CustomName:'{"text":"AME"}'}
+execute as @e[type=minecraft:marker,tag=macro.gate_yes,limit=1] run say [AME GATE] Load CONFIRMED by operator. Initializing macroEngine...
+execute as @e[type=minecraft:marker,tag=macro.gate_yes,limit=1] run kill @s
 
-# --- DISPATCH ---
-# Each executor reads its own fields from macro:engine pending_gate via macro.
-# The 'with storage' pattern passes pending_gate fields as $(macro) parameters.
+# Tear down gate scoreboard before load pipeline touches scoreboards
+scoreboard players reset #pending ame.load
+scoreboard players reset #confirmed ame.load
+scoreboard players reset #cancelled ame.load
+scoreboard objectives remove ame.load
 
-# ban: requires {type:"ban", player:"...", reason:"..."}
-execute if data storage macro:engine pending_gate{type:"ban"} run function ame_load:gate/exec/ban with storage macro:engine pending_gate
-
-# ban_ip: requires {type:"ban_ip", player:"...", reason:"..."}
-execute if data storage macro:engine pending_gate{type:"ban_ip"} run function ame_load:gate/exec/ban_ip with storage macro:engine pending_gate
-
-# disable: requires {type:"disable"} (no extra fields)
-execute if data storage macro:engine pending_gate{type:"disable"} run function ame_load:gate/exec/disable
-
-# --- CLEANUP ---
-data remove storage macro:engine pending_gate
-scoreboard players reset #pending ame.gate
-scoreboard players reset #confirmed ame.gate
-scoreboard objectives remove ame.gate
+# Fire the actual load pipeline
+# 1-tick delay gives scoreboard removal a clean tick boundary before
+# ame_load:load/scoreboards recreates its objectives
+schedule function ame_load:load/all 1t replace
