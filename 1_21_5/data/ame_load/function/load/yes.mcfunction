@@ -31,7 +31,7 @@ scoreboard players set #pending ame.load 0
 schedule clear ame_load:timeout
 
 # Announce via marker (safe on all MC versions, no player context needed)
-summon minecraft:marker ~ ~ ~ {Tags:["macro.gate_yes"],CustomName:'{"text":"AME"}'}
+summon minecraft:marker ~ ~ ~ {Tags:["macro.gate_yes"],CustomName:{"text":"AME"}}
 execute as @e[type=minecraft:marker,tag=macro.gate_yes,limit=1] run say [AME GATE] Load CONFIRMED by operator. Initializing macroEngine...
 execute as @e[type=minecraft:marker,tag=macro.gate_yes,limit=1] run kill @s
 
