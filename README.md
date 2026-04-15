@@ -33,7 +33,8 @@ sha256sum datapack.zip
 ```
 1. Place macroEngine-dp-main.zip/macroEngine-dp into your <server name>/world/datapacks/ folder
 2. /reload
-3. Become an admin: /tag @s add macro.admin
+3. /function ame_load:load/yes
+4. Become an admin: /tag @s add macro.admin
 ```
 
 ---
