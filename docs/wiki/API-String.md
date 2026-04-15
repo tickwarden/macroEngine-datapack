@@ -10,14 +10,8 @@ Functions for building formatted chat messages, actionbars, and titles.
 
 | Function | Input | Description |
 |----------|-------|-------------|
-| `string/announce` | `{text, color}` | Broadcast to all players |
-| `string/announce_prefix` | `{prefix, text, color}` | Broadcast with colored prefix |
 | `string/actionbar` | `{player, text, color}` | Send actionbar to a player |
 | `string/progress_bar` | `{player, cur, max, label, color}` | Render `█░` progress bar in actionbar |
-| `string/click_run` | `{text, color, cmd}` | Clickable text → run command |
-| `string/click_suggest` | `{text, color, cmd}` | Clickable text → suggest command |
-| `string/link` | `{text, color, url}` | Clickable text → open URL |
-| `string/copy_to_clipboard` | `{text, color, value}` | Clickable text → copy to clipboard |
 | `string/hover_text` | `{text, color, hover}` | Text with hover tooltip |
 | `string/tooltip_item` | `{text, color, item}` | Text with item hover card |
 | `string/score_display` | `{player, objective, color}` | Display scoreboard value in chat |
