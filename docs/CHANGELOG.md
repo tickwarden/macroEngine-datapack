@@ -2,6 +2,39 @@
 
 ---
 
+## [v4.0.1] — 2026-04-16
+
+### Security
+
+- **`input_check.mcfunction`** — `macro:cmd/other/run_self` blackliste eklendi.  
+  Bu fonksiyon herhangi bir ham komutu doğrudan `$(cmd)` makrosu olarak çalıştıran bir köprüydü; kötü niyetli `func` girdisiyle tam komut enjeksiyonuna olanak tanıyordu.
+
+- **`input_check.mcfunction`** — `macro:cmd/other/multi_cmd_adv` blackliste eklendi.  
+  `multi_cmd`'dan farklı olarak bu yolun kendi `macro.admin` kontrolü yoktu; dışarıdan `func` alanı olarak enjekte edilebilirdi.
+
+- **`tools/trigger/internal/exec_cmd.mcfunction`** — `execute unless entity @s[tag=macro.admin] run return 0` guard eklendi.  
+  `type:"cmd"` trigger'ı artık yalnızca `macro.admin` etiketli executor'lar tarafından çalıştırılabilir. Önceki hâlde herhangi bir trigger çağrısı ile keyfi komut yürütmek mümkündü.
+
+### Changed
+
+- Versiyon `v3.0.4` → `v4.0.1` olarak güncellendi (tüm overlay'lerde).
+- Versiyon score'ları güncellendi: `major=4 minor=0 patch=1` (önceki `3 0 4`).
+- `validate.mcfunction` score kontrolü düzeltildi: `minor matches 0`, `patch matches 1` (önceki `minor=1 patch=4` ile version_set uyumsuzluğu giderildi).
+
+### Affected files
+
+| Dosya | Değişiklik |
+|---|---|
+| `pack.mcmeta` | version string |
+| `data/ame_load/.../version_set.mcfunction` × 3 | major 3→4, patch 4→1 |
+| `data/ame_load/.../validate.mcfunction` × 3 | version string + score checks |
+| `data/ame_load/.../version_warn.mcfunction` × 6 | version string + debug text |
+| `data/macro/.../input_check.mcfunction` × 3 | version string + blacklist |
+| `data/macro/.../exec_cmd.mcfunction` × 3 | admin guard |
+
+---
+
+
 ## v4.0.0 — 2026-04-13
 
 ### ✨ Yeni
